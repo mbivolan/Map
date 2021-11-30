@@ -52,22 +52,22 @@ namespace Map
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(11, 6);
+            this.btnOpen.Image = global::Map.Properties.Resources.btnOpen;
+            this.btnOpen.Location = new System.Drawing.Point(11, 5);
             this.btnOpen.Margin = new System.Windows.Forms.Padding(2);
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(44, 23);
+            this.btnOpen.Size = new System.Drawing.Size(26, 24);
             this.btnOpen.TabIndex = 0;
-            this.btnOpen.Text = "Open";
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // cbZoom
             // 
             this.cbZoom.FormattingEnabled = true;
-            this.cbZoom.Location = new System.Drawing.Point(193, 7);
+            this.cbZoom.Location = new System.Drawing.Point(173, 8);
             this.cbZoom.Margin = new System.Windows.Forms.Padding(2);
             this.cbZoom.Name = "cbZoom";
-            this.cbZoom.Size = new System.Drawing.Size(48, 21);
+            this.cbZoom.Size = new System.Drawing.Size(55, 21);
             this.cbZoom.TabIndex = 14;
             // 
             // panelMenu
@@ -80,7 +80,7 @@ namespace Map
             // btnMode
             // 
             this.btnMode.Image = global::Map.Properties.Resources.btnSelect;
-            this.btnMode.Location = new System.Drawing.Point(158, 4);
+            this.btnMode.Location = new System.Drawing.Point(138, 5);
             this.btnMode.Margin = new System.Windows.Forms.Padding(2);
             this.btnMode.Name = "btnMode";
             this.btnMode.Size = new System.Drawing.Size(31, 24);
@@ -91,7 +91,7 @@ namespace Map
             // btnFitToScreen
             // 
             this.btnFitToScreen.Image = global::Map.Properties.Resources.btnFitToScreen;
-            this.btnFitToScreen.Location = new System.Drawing.Point(126, 4);
+            this.btnFitToScreen.Location = new System.Drawing.Point(106, 5);
             this.btnFitToScreen.Margin = new System.Windows.Forms.Padding(2);
             this.btnFitToScreen.Name = "btnFitToScreen";
             this.btnFitToScreen.Size = new System.Drawing.Size(28, 24);
@@ -102,7 +102,7 @@ namespace Map
             // btnZoomIn
             // 
             this.btnZoomIn.Image = global::Map.Properties.Resources.btnZoomIn;
-            this.btnZoomIn.Location = new System.Drawing.Point(59, 5);
+            this.btnZoomIn.Location = new System.Drawing.Point(41, 5);
             this.btnZoomIn.Margin = new System.Windows.Forms.Padding(2);
             this.btnZoomIn.Name = "btnZoomIn";
             this.btnZoomIn.Size = new System.Drawing.Size(28, 24);
@@ -113,7 +113,7 @@ namespace Map
             // btnZoomOut
             // 
             this.btnZoomOut.Image = global::Map.Properties.Resources.btnZoomOut;
-            this.btnZoomOut.Location = new System.Drawing.Point(91, 4);
+            this.btnZoomOut.Location = new System.Drawing.Point(73, 5);
             this.btnZoomOut.Margin = new System.Windows.Forms.Padding(2);
             this.btnZoomOut.Name = "btnZoomOut";
             this.btnZoomOut.Size = new System.Drawing.Size(29, 24);
