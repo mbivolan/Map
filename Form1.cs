@@ -308,6 +308,9 @@ namespace Map
                 // Left Shift or Right Shift pressed? Or is select mode one?
                 if (this.IsKeyPressed(0xA0) || this.IsKeyPressed(0xA1) || selectMode == true)
                 {
+
+                    drawing.DrawSqare(e.X, e.Y);
+                    /*
                     // Fancy cursor
                     pbFull.Cursor = Cursors.Cross;
 
@@ -320,6 +323,7 @@ namespace Map
                     // No selection end
                     ptSelectionEnd.X = -1;
                     ptSelectionEnd.Y = -1;
+                    */
                 }
                 else
                 {
@@ -534,6 +538,13 @@ namespace Map
                 }
             }
 
+            UpdatePanels(true);
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            InitControl();
+            drawing.AvoidOutOfScreen();
             UpdatePanels(true);
         }
 

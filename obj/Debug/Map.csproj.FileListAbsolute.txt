@@ -18,3 +18,13 @@ C:\Users\Stefan Iancu\source\repos\Map\obj\Debug\Map.csproj.GenerateResource.cac
 C:\Users\Stefan Iancu\source\repos\Map\obj\Debug\Map.csproj.CoreCompileInputs.cache
 C:\Users\Stefan Iancu\source\repos\Map\obj\Debug\Map.exe
 C:\Users\Stefan Iancu\source\repos\Map\obj\Debug\Map.pdb
+C:\Users\bivolan\source\repos\New folder\Map\bin\Debug\Map.exe.config
+C:\Users\bivolan\source\repos\New folder\Map\bin\Debug\Map.exe
+C:\Users\bivolan\source\repos\New folder\Map\bin\Debug\Map.pdb
+C:\Users\bivolan\source\repos\New folder\Map\obj\Debug\Map.csproj.AssemblyReference.cache
+C:\Users\bivolan\source\repos\New folder\Map\obj\Debug\Map.Form1.resources
+C:\Users\bivolan\source\repos\New folder\Map\obj\Debug\Map.Properties.Resources.resources
+C:\Users\bivolan\source\repos\New folder\Map\obj\Debug\Map.csproj.GenerateResource.cache
+C:\Users\bivolan\source\repos\New folder\Map\obj\Debug\Map.csproj.CoreCompileInputs.cache
+C:\Users\bivolan\source\repos\New folder\Map\obj\Debug\Map.exe
+C:\Users\bivolan\source\repos\New folder\Map\obj\Debug\Map.pdb

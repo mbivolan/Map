@@ -1,0 +1,10 @@
+C:\Users\bivolan\source\repos\New folder\Map\bin\Release\Map.exe.config
+C:\Users\bivolan\source\repos\New folder\Map\bin\Release\Map.exe
+C:\Users\bivolan\source\repos\New folder\Map\bin\Release\Map.pdb
+C:\Users\bivolan\source\repos\New folder\Map\obj\Release\Map.Form1.resources
+C:\Users\bivolan\source\repos\New folder\Map\obj\Release\Map.Properties.Resources.resources
+C:\Users\bivolan\source\repos\New folder\Map\obj\Release\Map.csproj.GenerateResource.cache
+C:\Users\bivolan\source\repos\New folder\Map\obj\Release\Map.csproj.CoreCompileInputs.cache
+C:\Users\bivolan\source\repos\New folder\Map\obj\Release\Map.exe
+C:\Users\bivolan\source\repos\New folder\Map\obj\Release\Map.pdb
+C:\Users\bivolan\source\repos\New folder\Map\obj\Release\Map.csproj.AssemblyReference.cache

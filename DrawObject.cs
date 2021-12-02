@@ -104,7 +104,7 @@ namespace Map
                 // Making sure that the rotation is only 0, 90, 180 or 270 degrees!
                 if (value == 90 || value == 180 || value == 270 || value == 0)
                 {
-                    rotation = value;
+                    rotation = 0;
                 }
             }
         }
@@ -221,6 +221,7 @@ namespace Map
                             this.multiBmp = null;
                         }
 
+                        
                         // Initial rotation adjustments
                         if (rotation != 0)
                         {
@@ -249,6 +250,7 @@ namespace Map
                             this.Image.RotateFlip(RotateFlipType.RotateNoneFlipNone);
                             boundingRect = new Rectangle(0, 0, (int)(this.ImageWidth * zoom), (int)(this.ImageHeight * zoom));
                         }
+                        
 
                         zoom = 1.0;
                         bmpPreview = CreatePreviewImage();
@@ -291,8 +293,9 @@ namespace Map
                     // Make sure it does not crash on incorrect image formats
                     try
                     {
-                        //temp = (Bitmap)Bitmap.FromFile(value);
-                        temp = new Bitmap(value);
+                        temp = (Bitmap)Bitmap.FromFile(value);
+                        temp = new Bitmap(temp, new Size(4000, 1500));
+                        //temp = addASqare(temp, 200, 200, 300, 300);
                     }
                     catch
                     {
@@ -894,6 +897,76 @@ namespace Map
                 System.Windows.Forms.MessageBox.Show("ImageViewer error: " + ex.ToString());
             }
         }
+
+        public Bitmap addASqare(Bitmap original, int x, int y, int lun, int lat)
+        {
+            Bitmap temp = original;
+
+            for (int i = x; i < x + lun; i++)
+            {
+                for (int j = y; j < y + lat; j++)
+                {
+                    //Color pixelColor = image1.GetPixel(x, y);
+                    Color newColor = Color.FromArgb(235, 64, 52);
+                    temp.SetPixel(i, j, newColor);
+                }
+            }
+
+            return temp;
+        }
+
+        /*
+        public Point translateCoord()
+        {
+            Point temp;
+
+            return temp;
+        }
+        */
+
+        public void DrawCircle(Graphics g, Pen pen,
+                              float centerX, float centerY, float radius)
+        {
+            g.DrawEllipse(pen, centerX - radius, centerY - radius,
+                          radius + radius, radius + radius);
+        }
+
+        public void FillCircle(Graphics g, Brush brush,
+                                      float centerX, float centerY, float radius)
+        {
+            g.FillEllipse(brush, centerX - radius, centerY - radius,
+                          radius + radius, radius + radius);
+        }
+        
+
+        public void DrawSqare(int x, int y)
+        {
+            try
+            {
+                if (this.bmp != null)
+                {
+                    int originX = 0 - boundingRect.X;
+                    int originY = 0 - boundingRect.Y;
+
+                    double paramx = (x + originX) / zoom;
+                    double paramy = (y + originY) / zoom;
+
+                    Graphics g = Graphics.FromImage(this.bmp);
+                    Pen myPen = new Pen(Brushes.DeepSkyBlue);
+                    DrawCircle(g, myPen, (int)paramx, (int)paramy, 20);
+                    FillCircle(g, Brushes.DeepSkyBlue, (int)paramx, (int)paramy, 20);
+                    myPen.Dispose();
+                    g.Dispose();
+
+                    //this.bmp = addASqare(this.bmp, (int)paramx, (int)paramy, 100, 100);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("ImageViewer error: " + ex.ToString());
+            }
+        }
+
 
         public void EndDrag()
         {
