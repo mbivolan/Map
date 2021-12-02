@@ -21,11 +21,16 @@ namespace Map
     {
         private DrawObject drawing;
         private DrawEngine drawEngine;
+        private List<Map.CheckPoint> checkPoints;
+        private Map.CheckPoint lastPoint;
         private bool selectMode = false;
         private bool panelDragging = false;
         private bool isScrolling = false;
         private bool scrollbars = false;
-        
+        private bool enableNewPoint = true;
+
+        private int selectedPointNumber = -1;
+
         private bool shiftSelecting = false;
         private Point ptSelectionStart = new Point();
         private Point ptSelectionEnd = new Point();
@@ -38,6 +43,7 @@ namespace Map
         {
             drawEngine = new DrawEngine();
             drawing = new DrawObject(this);
+            checkPoints = new List<CheckPoint>();
             InitializeComponent();
             InitControl();
         }
@@ -303,30 +309,43 @@ namespace Map
 
         private void pbFull_MouseDown(object sender, MouseEventArgs e)
         {
+            selectedPointNumber = getClickedCircle(drawing.getScaledPoint(new Point(e.X, e.Y)));
+
             if (e.Button == MouseButtons.Left)
             {
                 // Left Shift or Right Shift pressed? Or is select mode one?
                 if (this.IsKeyPressed(0xA0) || this.IsKeyPressed(0xA1) || selectMode == true)
                 {
+                    if (!enableNewPoint)
+                    {
+                        return;
+                    }
 
-                    drawing.DrawSqare(e.X, e.Y);
-                    /*
-                    // Fancy cursor
-                    pbFull.Cursor = Cursors.Cross;
+                    enableNewPoint = false;
 
-                    shiftSelecting = true;
+                    drawing.DrawCircle(e.X, e.Y);
 
-                    // Initial seleciton
-                    ptSelectionStart.X = e.X;
-                    ptSelectionStart.Y = e.Y;
+                    checkPoints.Add(new CheckPoint());
+                    selectedPointNumber = checkPoints.Count() - 1;
 
-                    // No selection end
-                    ptSelectionEnd.X = -1;
-                    ptSelectionEnd.Y = -1;
-                    */
+                    var ck = checkPoints.ElementAt(selectedPointNumber);
+
+                    Point pointCoord = drawing.getScaledPoint(new Point(e.X, e.Y));
+
+                    ck.coord_x = pointCoord.X;
+                    ck.coord_y = pointCoord.Y;
+
+                    selectMode = false;
+                    this.btnMode.Image = Map.Properties.Resources.btnSelect;
+                }
+                else if (selectedPointNumber != -1)
+                {
+                    numePropText.Text = checkPoints.ElementAt(selectedPointNumber).NumeProprietar;
                 }
                 else
                 {
+                    selectedPointNumber = -1;
+                    PopulateMetaFields();
                     // Start dragging
                     drawing.BeginDrag(new Point(e.X, e.Y));
 
@@ -766,5 +785,38 @@ namespace Map
             }
         }
 
+        private void saveMetaBtn_Click(object sender, EventArgs e)
+        {
+            enableNewPoint = true;
+            var ck = checkPoints.ElementAt(selectedPointNumber);
+
+            ck.NumeProprietar = numePropText.Text;
+
+            PopulateMetaFields();
+        }
+
+        private int getClickedCircle(Point newPoint)
+        {
+            foreach (var thisCheckPoint in checkPoints)
+            {
+                bool isInside = ((newPoint.X - thisCheckPoint.coord_x) * (newPoint.X - thisCheckPoint.coord_x) + (newPoint.Y - thisCheckPoint.coord_y) * (newPoint.Y - thisCheckPoint.coord_y) < 400);
+                if (isInside)
+                {
+                    return checkPoints.IndexOf(thisCheckPoint);
+                }
+            }
+
+            return -1;
+        }
+
+        private void PopulateMetaFields()
+        {
+            numePropText.Text = "";
+        }
+
+        private void PopulateMetaFields(CheckPoint ck)
+        {
+            numePropText.Text = ck.NumeProprietar;
+        }
     }
 }

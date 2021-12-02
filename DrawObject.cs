@@ -939,17 +939,29 @@ namespace Map
         }
         
 
-        public void DrawSqare(int x, int y)
+        public Point getScaledPoint(Point oldPoint)
+        {
+            Point newPoint = new Point();
+
+            int originX = 0 - boundingRect.X;
+            int originY = 0 - boundingRect.Y;
+
+            newPoint.X = (int)((oldPoint.X + originX) / zoom);
+            newPoint.Y = (int)((oldPoint.Y + originY) / zoom);
+
+            return newPoint;
+        }
+
+        public void DrawCircle(int x, int y)
         {
             try
             {
                 if (this.bmp != null)
                 {
-                    int originX = 0 - boundingRect.X;
-                    int originY = 0 - boundingRect.Y;
+                    Point newPoint = getScaledPoint(new Point(x, y));
 
-                    double paramx = (x + originX) / zoom;
-                    double paramy = (y + originY) / zoom;
+                    double paramx = newPoint.X;
+                    double paramy = newPoint.Y;
 
                     Graphics g = Graphics.FromImage(this.bmp);
                     Pen myPen = new Pen(Brushes.DeepSkyBlue);

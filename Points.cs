@@ -6,16 +6,10 @@ using System.Threading.Tasks;
 
 namespace Map
 {
-    class Patrat
+    class CheckPoint
     {
         public string NumeProprietar;
-        private int pozXpatrat;
-        private string status;
-
-
-        public void setNume(string nume)
-        {
-            this.NumeProprietar = nume;
-        }
+        public int coord_x;
+        public int coord_y;
     }
 }

@@ -42,12 +42,13 @@ namespace Map
             this.panelNavigation = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.numePropText = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.pbFull = new Map.PanelDoubleBuffered();
             this.sbVert = new System.Windows.Forms.VScrollBar();
             this.sbHoriz = new System.Windows.Forms.HScrollBar();
             this.sbPanel = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.saveMetaBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbPanel)).BeginInit();
             this.panel1.SuspendLayout();
             this.pbFull.SuspendLayout();
@@ -167,11 +168,11 @@ namespace Map
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Location = new System.Drawing.Point(1265, 41);
+            this.panel1.Controls.Add(this.numePropText);
+            this.panel1.Location = new System.Drawing.Point(1252, 41);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(217, 700);
+            this.panel1.Size = new System.Drawing.Size(243, 661);
             this.panel1.TabIndex = 17;
             // 
             // label1
@@ -185,6 +186,22 @@ namespace Map
             this.label1.Size = new System.Drawing.Size(47, 17);
             this.label1.TabIndex = 18;
             this.label1.Text = "Detalii";
+            // 
+            // numePropText
+            // 
+            this.numePropText.Location = new System.Drawing.Point(54, 13);
+            this.numePropText.Name = "numePropText";
+            this.numePropText.Size = new System.Drawing.Size(180, 22);
+            this.numePropText.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(45, 17);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Nume";
             // 
             // pbFull
             // 
@@ -241,27 +258,22 @@ namespace Map
             this.sbPanel.Size = new System.Drawing.Size(1241, 699);
             this.sbPanel.TabIndex = 13;
             // 
-            // textBox1
+            // saveMetaBtn
             // 
-            this.textBox1.Location = new System.Drawing.Point(79, 16);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 22);
-            this.textBox1.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 19);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 21);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Nume";
+            this.saveMetaBtn.Location = new System.Drawing.Point(1252, 709);
+            this.saveMetaBtn.Name = "saveMetaBtn";
+            this.saveMetaBtn.Size = new System.Drawing.Size(118, 30);
+            this.saveMetaBtn.TabIndex = 19;
+            this.saveMetaBtn.Text = "Save";
+            this.saveMetaBtn.UseVisualStyleBackColor = true;
+            this.saveMetaBtn.Click += new System.EventHandler(this.saveMetaBtn_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1499, 742);
+            this.Controls.Add(this.saveMetaBtn);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnZoomOut);
@@ -304,7 +316,8 @@ namespace Map
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox numePropText;
+        private System.Windows.Forms.Button saveMetaBtn;
     }
 }
 
