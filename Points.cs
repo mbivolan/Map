@@ -9,6 +9,13 @@ namespace Map
     class CheckPoint
     {
         public string NumeProprietar;
+        public string Tarla;
+        public string Parcela;
+        public string Suprafata;
+        public string StatusDosar;
+        public string LinkDocument;
+        public string AdditionalDocument;
+
         public int coord_x;
         public int coord_y;
     }

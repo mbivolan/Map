@@ -147,6 +147,35 @@ namespace Map
             UpdatePanels(true);
         }
 
+        private void btnAddDocument_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Filter = "Fisiere PDF|*.pdf|All files (*.*)|*.*";
+
+            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                linkDocumentText.Text = openFileDialog.FileName;
+            }
+
+            UpdatePanels(true);
+        }
+        
+
+        private void additionalDocument_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Filter = "Fisiere PDF|*.pdf|All files (*.*)|*.*";
+
+            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                additionalDocumentText.Text = openFileDialog.FileName;
+            }
+
+            UpdatePanels(true);
+        }
+
         private void SbVert_Scroll(object sender, ScrollEventArgs e)
         {
             if (!isScrolling)
@@ -341,6 +370,12 @@ namespace Map
                 else if (selectedPointNumber != -1)
                 {
                     numePropText.Text = checkPoints.ElementAt(selectedPointNumber).NumeProprietar;
+                    tarlaText.Text = checkPoints.ElementAt(selectedPointNumber).Tarla;
+                    parcelaText.Text = checkPoints.ElementAt(selectedPointNumber).Parcela;
+                    suprafataText.Text = checkPoints.ElementAt(selectedPointNumber).Suprafata;
+                    statusDosarText.Text = checkPoints.ElementAt(selectedPointNumber).StatusDosar;
+                    linkDocumentText.Text = checkPoints.ElementAt(selectedPointNumber).LinkDocument;
+                    additionalDocumentText.Text = checkPoints.ElementAt(selectedPointNumber).AdditionalDocument;
                 }
                 else
                 {
@@ -791,7 +826,12 @@ namespace Map
             var ck = checkPoints.ElementAt(selectedPointNumber);
 
             ck.NumeProprietar = numePropText.Text;
-
+            ck.Tarla = tarlaText.Text;
+            ck.Parcela = parcelaText.Text;
+            ck.Suprafata = suprafataText.Text;
+            ck.StatusDosar = statusDosarText.Text;
+            ck.LinkDocument = linkDocumentText.Text;
+            ck.AdditionalDocument = additionalDocumentText.Text;
             PopulateMetaFields();
         }
 
@@ -812,11 +852,104 @@ namespace Map
         private void PopulateMetaFields()
         {
             numePropText.Text = "";
+            tarlaText.Text = "";
+            parcelaText.Text = "";
+            suprafataText.Text = "";
+            statusDosarText.Text = "";
+            linkDocumentText.Text = "Niciun document";
+            additionalDocumentText.Text = "Niciun document aditional";
         }
 
         private void PopulateMetaFields(CheckPoint ck)
         {
             numePropText.Text = ck.NumeProprietar;
+            tarlaText.Text = ck.Tarla;
+            parcelaText.Text = ck.Parcela;
+            suprafataText.Text = ck.Suprafata;
+            statusDosarText.Text = ck.StatusDosar;
+            linkDocumentText.Text = ck.LinkDocument;
+            additionalDocumentText.Text = ck.AdditionalDocument;
         }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void addDocument_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numePropText_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tarlaText_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void parcelaText_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void suprafataText_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void statusDosarText_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void linkDocument_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                VisitLink();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open link that was clicked.");
+            }
+        }
+
+        private void additionalDocument_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                VisitLink2();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open link that was clicked.");
+            }
+        }
+
+        private void VisitLink()
+        {
+            // Change the color of the link text by setting LinkVisited
+            // to true.
+            linkDocumentText.LinkVisited = true;
+            //Call the Process.Start method to open the default browser
+            //with a URL:
+            System.Diagnostics.Process.Start(linkDocumentText.Text);
+        }
+
+        private void VisitLink2()
+        {
+            // Change the color of the link text by setting LinkVisited
+            // to true.
+            additionalDocumentText.LinkVisited = true;
+            //Call the Process.Start method to open the default browser
+            //with a URL:
+            System.Diagnostics.Process.Start(additionalDocumentText.Text);
+        }
+
+        
     }
 }
