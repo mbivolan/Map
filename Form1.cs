@@ -30,6 +30,7 @@ namespace Map
         private bool enableNewPoint = true;
 
         private int selectedPointNumber = -1;
+        private int lastSelectedPoint = -1;
 
         private bool shiftSelecting = false;
         private Point ptSelectionStart = new Point();
@@ -338,7 +339,13 @@ namespace Map
 
         private void pbFull_MouseDown(object sender, MouseEventArgs e)
         {
-            selectedPointNumber = getClickedCircle(drawing.getScaledPoint(new Point(e.X, e.Y)));
+            selectedPointNumber = getClickedCircle(drawing.getScaledPoint(new FloatPoint(e.X, e.Y)));
+
+            if (lastSelectedPoint != -1)
+            {
+                var ck = checkPoints.ElementAt(lastSelectedPoint);
+                drawing.DrawCircle((int)ck.coord_x, (int)ck.coord_y, Brushes.DeepSkyBlue);
+            }
 
             if (e.Button == MouseButtons.Left)
             {
@@ -352,17 +359,18 @@ namespace Map
 
                     enableNewPoint = false;
 
-                    drawing.DrawCircle(e.X, e.Y);
+                    FloatPoint pointCoord = drawing.getScaledPoint(new FloatPoint(e.X, e.Y));
+
+                    drawing.DrawCircle((int)pointCoord.X, (int)pointCoord.Y, Brushes.Black);
 
                     checkPoints.Add(new CheckPoint());
                     selectedPointNumber = checkPoints.Count() - 1;
+                    lastSelectedPoint = selectedPointNumber;
 
                     var ck = checkPoints.ElementAt(selectedPointNumber);
 
-                    Point pointCoord = drawing.getScaledPoint(new Point(e.X, e.Y));
-
-                    ck.coord_x = pointCoord.X;
-                    ck.coord_y = pointCoord.Y;
+                    ck.coord_x = (int)pointCoord.X;
+                    ck.coord_y = (int)pointCoord.Y;
 
                     selectMode = false;
                     this.btnMode.Image = Map.Properties.Resources.btnSelect;
@@ -376,10 +384,15 @@ namespace Map
                     statusDosarText.Text = checkPoints.ElementAt(selectedPointNumber).StatusDosar;
                     linkDocumentText.Text = checkPoints.ElementAt(selectedPointNumber).LinkDocument;
                     additionalDocumentText.Text = checkPoints.ElementAt(selectedPointNumber).AdditionalDocument;
+
+                    lastSelectedPoint = selectedPointNumber;
+                    var ck = checkPoints.ElementAt(lastSelectedPoint);
+                    drawing.DrawCircle((int)ck.coord_x, (int)ck.coord_y, Brushes.Black);
                 }
                 else
                 {
                     selectedPointNumber = -1;
+                    lastSelectedPoint = -1;
                     PopulateMetaFields();
                     // Start dragging
                     drawing.BeginDrag(new Point(e.X, e.Y));
@@ -835,7 +848,7 @@ namespace Map
             PopulateMetaFields();
         }
 
-        private int getClickedCircle(Point newPoint)
+        private int getClickedCircle(FloatPoint newPoint)
         {
             foreach (var thisCheckPoint in checkPoints)
             {

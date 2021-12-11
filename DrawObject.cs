@@ -6,6 +6,17 @@ using System.Drawing.Drawing2D;
 
 namespace Map
 {
+    public struct FloatPoint
+    {
+        public double X;
+        public double Y;
+
+        public FloatPoint(double x, double y)
+        {
+            X = x;
+            Y = y;
+        }
+    }
     public class DrawObject
     {
         private Form1 KpViewer;
@@ -939,34 +950,42 @@ namespace Map
         }
         
 
-        public Point getScaledPoint(Point oldPoint)
+        public FloatPoint getScaledPoint(FloatPoint oldPoint)
         {
-            Point newPoint = new Point();
+            FloatPoint newPoint = new FloatPoint();
 
             int originX = 0 - boundingRect.X;
             int originY = 0 - boundingRect.Y;
 
-            newPoint.X = (int)((oldPoint.X + originX) / zoom);
-            newPoint.Y = (int)((oldPoint.Y + originY) / zoom);
+            newPoint.X = (oldPoint.X + originX) / zoom;
+            newPoint.Y = (oldPoint.Y + originY) / zoom;
 
             return newPoint;
         }
 
-        public void DrawCircle(int x, int y)
+        public FloatPoint getUnScaledPoint(FloatPoint oldPoint)
+        {
+            FloatPoint newPoint = new FloatPoint();
+
+            int originX = 0 - boundingRect.X;
+            int originY = 0 - boundingRect.Y;
+
+            newPoint.X = (oldPoint.X * zoom - originX);
+            newPoint.Y = (oldPoint.Y * zoom - originY);
+
+            return newPoint;
+        }
+
+        public void DrawCircle(int x, int y, Brush pointColor)
         {
             try
             {
                 if (this.bmp != null)
                 {
-                    Point newPoint = getScaledPoint(new Point(x, y));
-
-                    double paramx = newPoint.X;
-                    double paramy = newPoint.Y;
-
                     Graphics g = Graphics.FromImage(this.bmp);
-                    Pen myPen = new Pen(Brushes.DeepSkyBlue);
-                    DrawCircle(g, myPen, (int)paramx, (int)paramy, 20);
-                    FillCircle(g, Brushes.DeepSkyBlue, (int)paramx, (int)paramy, 20);
+                    Pen myPen = new Pen(pointColor);
+                    DrawCircle(g, myPen, (int)x, (int)y, 20);
+                    FillCircle(g, pointColor, (int)x, (int)y, 20);
                     myPen.Dispose();
                     g.Dispose();
 
