@@ -447,6 +447,7 @@ namespace Map
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Cerealcom";
+            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.MouseWheelZoom);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pbPanel)).EndInit();
             this.panel1.ResumeLayout(false);

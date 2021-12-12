@@ -589,7 +589,7 @@ namespace Map
             }
         }
 
-        private void KP_ImageViewerV2_MouseWheel(object sender, MouseEventArgs e)
+        private void MouseWheelZoom(object sender, MouseEventArgs e)
         {
             drawing.Scroll(sender, e);
 
