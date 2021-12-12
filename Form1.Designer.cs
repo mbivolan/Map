@@ -29,6 +29,8 @@ namespace Map
         /// </summary>
         private void InitializeComponent()
         {
+            InitializeExplorerMenu();
+
             this.btnOpen = new System.Windows.Forms.Button();
             this.cbZoom = new System.Windows.Forms.ComboBox();
             this.panelMenu = new System.Windows.Forms.Panel();
@@ -452,6 +454,9 @@ namespace Map
             this.pbFull.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
+
+            ShowExplorerMenu();
+            //ShowMap();
 
         }
 
