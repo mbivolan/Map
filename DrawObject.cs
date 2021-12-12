@@ -56,10 +56,7 @@ namespace Map
 
         public void Dispose()
         {
-            if (this.Image != null)
-            {
-                this.Image.Dispose();
-            }
+            this.Image?.Dispose();
         }
 
         public bool IsDragging
