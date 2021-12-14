@@ -16,7 +16,6 @@ namespace Map
         ZoomOut
     }
 
-
     public partial class Form1 : Form
     {
         private DrawObject drawing;
@@ -162,7 +161,6 @@ namespace Map
             UpdatePanels(true);
         }
         
-
         private void additionalDocument_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -615,7 +613,6 @@ namespace Map
             UpdatePanels(true);
         }
 
-
         private void pbFull_Paint(object sender, PaintEventArgs e)
         {
             // Can I double buffer?
@@ -745,69 +742,6 @@ namespace Map
 
                 // Display zoom in percentages
                 cbZoom.Text = (int)(zoom * 100) + "%";
-
-                /*
-                if (updatePreview && drawing.PreviewImage != null && pbPanel.Visible == true)
-                {
-                    // No memory leaks here
-                    if (preview != null)
-                    {
-                        preview.Dispose();
-                        preview = null;
-                    }
-
-                    // New preview
-                    preview = new Bitmap(drawing.PreviewImage.Size.Width, drawing.PreviewImage.Size.Height);
-
-                    // Make sure panel is the same size as the bitmap
-                    if (pbPanel.Size != drawing.PreviewImage.Size)
-                    {
-                        pbPanel.Size = drawing.PreviewImage.Size;
-                    }
-
-                    // New Graphics from the new bitmap we created (Empty)
-                    using (Graphics g = Graphics.FromImage(preview))
-                    {
-                        // Draw the image on the bitmap
-                        g.DrawImage(drawing.PreviewImage, 0, 0, drawing.PreviewImage.Size.Width, drawing.PreviewImage.Size.Height);
-
-                        double ratioX = (double)drawing.PreviewImage.Size.Width / (double)drawing.CurrentSize.Width;
-                        double ratioY = (double)drawing.PreviewImage.Size.Height / (double)drawing.CurrentSize.Height;
-
-                        double boxWidth = pbFull.Width * ratioX;
-                        double boxHeight = pbFull.Height * ratioY;
-                        double positionX = ((drawing.BoundingBox.X - (drawing.BoundingBox.X * 2)) * ratioX);
-                        double positionY = ((drawing.BoundingBox.Y - (drawing.BoundingBox.Y * 2)) * ratioY);
-
-                        // Making the red pen
-                        Pen pen = new Pen(Color.Red, 1);
-
-                        if (boxHeight >= drawing.PreviewImage.Size.Height)
-                        {
-                            boxHeight = drawing.PreviewImage.Size.Height - 1;
-                        }
-                        else if ((boxHeight + positionY) > drawing.PreviewImage.Size.Height)
-                        {
-                            boxHeight = drawing.PreviewImage.Size.Height - (positionY);
-                        }
-
-                        if (boxWidth >= drawing.PreviewImage.Size.Width)
-                        {
-                            boxWidth = drawing.PreviewImage.Size.Width - 1;
-                        }
-                        else if ((boxWidth + positionX) > drawing.PreviewImage.Size.Width)
-                        {
-                            boxWidth = drawing.PreviewImage.Size.Width - (positionX);
-                        }
-
-                        // Draw the rectangle on the bitmap
-                        g.DrawRectangle(pen, new Rectangle((int)positionX, (int)positionY, (int)boxWidth, (int)boxHeight));
-                    }
-
-                    // Display the bitmap
-                    pbPanel.Image = preview;
-                }
-                */
             }
             
         }
@@ -945,9 +879,6 @@ namespace Map
 
         private void VisitLink()
         {
-            // Change the color of the link text by setting LinkVisited
-            // to true.
-            linkDocumentText.LinkVisited = true;
             //Call the Process.Start method to open the default browser
             //with a URL:
             System.Diagnostics.Process.Start(linkDocumentText.Text);
@@ -955,9 +886,6 @@ namespace Map
 
         private void VisitLink2()
         {
-            // Change the color of the link text by setting LinkVisited
-            // to true.
-            additionalDocumentText.LinkVisited = true;
             //Call the Process.Start method to open the default browser
             //with a URL:
             System.Diagnostics.Process.Start(additionalDocumentText.Text);

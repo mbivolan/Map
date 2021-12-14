@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -87,6 +88,7 @@ namespace Map
 
             foreach(Control newContr in foundObjects)
             {
+                explorerMenuPanel.Controls.OfType<Button>().ToList().ForEach(btn => btn.Dispose());
                 this.explorerMenuPanel.Controls.Remove(newContr);
             }
 
@@ -115,7 +117,43 @@ namespace Map
                 buttons.Add(newButton);
                 this.explorerMenuPanel.Controls.Add(newButton);
             }
+        CreateBackButton();
         }
+        private void CreateBackButton()
+        {
+            Button btnBack = new System.Windows.Forms.Button();
+            btnBack.Margin = new System.Windows.Forms.Padding(5);
+            btnBack.Size = new System.Drawing.Size(100, 50);
+            btnBack.Name = "btnBack";
+            btnBack.Text = "Back";
+            btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top
+                | System.Windows.Forms.AnchorStyles.Right)));
+            buttons.Add(btnBack);
+            btnBack.Click += new System.EventHandler(this.getBack_Click);
+            this.explorerMenuPanel.Controls.Add(btnBack);
+        }
+
+        private void getBack_Click(object sender, EventArgs e)
+        {
+            Button senderBtn = (Button)sender;
+
+            locationExplorer.goToBase();
+
+            if (locationExplorer.IsDocumentDir())
+            {
+                RemoveLocationButtons();
+                ShowMap();
+
+                this.ImagePath = locationExplorer.GetConfigFile();
+                UpdatePanels(true);
+            }
+            else
+            {
+                RemoveLocationButtons();
+                CreateLocationButtons();
+            }
+        }
+
 
         private void UpdateButtonsFromPath()
         {

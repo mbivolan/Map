@@ -10,10 +10,17 @@ namespace Map.Components.Tools
     class FileExplorer
     {
         private string explorerPath;
+        private string basePath;
 
         public FileExplorer(string path)
         {
             this.explorerPath = path;
+            this.basePath = path;
+        }
+
+        public void goToBase()
+        {
+            this.explorerPath = this.basePath;
         }
 
         public string GetExplorerPath()
