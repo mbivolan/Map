@@ -58,6 +58,7 @@ namespace Map.Components.Tools
             {
                 if (Path.GetExtension(fileName) == ".png")
                 {
+                    //ajdhbajhsdbjasbdjhabsjd
                     return fileName;
                 }
             }
