@@ -57,12 +57,19 @@ namespace Map
 
             if (locationExplorer.IsDocumentDir())
             {
-                RemoveLocationButtons();
+                var list = Directory.GetFiles(locationExplorer.GetExplorerPath(), "*.png");
+                if (list.Length > 0)
+                {
+                    Console.WriteLine(list.Length);
+                    RemoveLocationButtons();
+                    CreateImageButton();
+                    //CreateBackButton();
+                }
+                //RemoveLocationButtons();
+                //ShowMap();
 
-                ShowMap();
-
-                this.ImagePath = locationExplorer.GetConfigFile();
-                UpdatePanels(true);
+                //this.ImagePath = locationExplorer.GetConfigFile();
+                //UpdatePanels(true);
             }
             else
             {
@@ -91,7 +98,6 @@ namespace Map
                 explorerMenuPanel.Controls.OfType<Button>().ToList().ForEach(btn => btn.Dispose());
                 this.explorerMenuPanel.Controls.Remove(newContr);
             }
-
         }
 
         private void CreateLocationButtons()
@@ -119,6 +125,7 @@ namespace Map
             }
         CreateBackButton();
         }
+
         private void CreateBackButton()
         {
             Button btnBack = new System.Windows.Forms.Button();
@@ -154,6 +161,38 @@ namespace Map
             }
         }
 
+        private void CreateImageButton()
+        {
+            var list = Directory.GetFiles(locationExplorer.GetExplorerPath(), "*.png");
+            foreach (string imagPath in list)
+            {
+                Button btnImg = new System.Windows.Forms.Button();
+                btnImg.Margin = new System.Windows.Forms.Padding(5);
+                btnImg.Size = new System.Drawing.Size(300, 50);
+                btnImg.Name = "btnImg";
+                btnImg.Text = Path.GetFileNameWithoutExtension(imagPath);
+                btnImg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top
+                    | System.Windows.Forms.AnchorStyles.Right)));
+                buttons.Add(btnImg);
+                btnImg.Tag = imagPath;
+                btnImg.Click += new System.EventHandler(this.imageButton_Click);
+                this.explorerMenuPanel.Controls.Add(btnImg);
+                
+                this.ImagePath = locationExplorer.MapPath(imagPath);
+
+                Console.WriteLine(imagPath);
+            }
+        }
+
+        private void imageButton_Click(object sender, EventArgs e)
+        {
+            RemoveLocationButtons();
+            ShowMap();
+
+            this.ImagePath = locationExplorer.GetConfigFile();
+            Console.WriteLine(locationExplorer);
+            UpdatePanels(true);
+        }
 
         private void UpdateButtonsFromPath()
         {
@@ -172,7 +211,5 @@ namespace Map
             this.pbFull.Show();
             this.explorerMenuPanel.Hide();
         }
-
-
     }
 }

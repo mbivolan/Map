@@ -21,7 +21,6 @@ namespace Map
         private DrawObject drawing;
         private DrawEngine drawEngine;
         private List<Map.CheckPoint> checkPoints;
-        private Map.CheckPoint lastPoint;
         private bool selectMode = false;
         private bool panelDragging = false;
         private bool isScrolling = false;
@@ -859,7 +858,7 @@ namespace Map
             {
                 VisitLink();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("Unable to open link that was clicked.");
             }
@@ -871,7 +870,7 @@ namespace Map
             {
                 VisitLink2();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("Unable to open link that was clicked.");
             }

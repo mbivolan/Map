@@ -72,6 +72,23 @@ namespace Map.Components.Tools
             return "";
         }
 
+        public string MapPath(string mapPath)
+        {
+            foreach (string fileName in Directory.GetFiles(this.explorerPath))
+            {
+                if (Path.GetExtension(fileName) == ".png")
+                {
+                    if (mapPath == fileName)
+                    {
+                        return fileName;
+                    }
+                    
+                }
+            }
+
+            return "";
+        }
+
         /*
         public static void Main(string[] args)
         {
