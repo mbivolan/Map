@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Map
 {
@@ -27,6 +29,8 @@ namespace Map
         private bool isScrolling = false;
         private bool scrollbars = false;
         private bool enableNewPoint = true;
+        private string imagePath;
+        private string configPath;
 
         private int selectedPointNumber = -1;
         private int lastSelectedPoint = -1;
@@ -112,6 +116,10 @@ namespace Map
             set
             {
                 drawing.ImagePath = value;
+                this.imagePath = value;
+
+                var imageDir = Path.GetDirectoryName(imagePath);
+                this.configPath = Path.Combine(imageDir, "config.json");
 
                 UpdatePanels(true);
                 //ToggleMultiPage();
@@ -120,6 +128,8 @@ namespace Map
                 DisplayScrollbars();
                 SetScrollbarValues();
             }
+
+            get { return this.imagePath; }
         }
 
         public delegate void ImageViewerZoomEventHandler(object sender, ImageViewerZoomEventArgs e);
@@ -145,6 +155,8 @@ namespace Map
             }
 
             UpdatePanels(true);
+
+            LoadPointsData();
         }
 
         private void btnAddDocument_Click(object sender, EventArgs e)
@@ -779,6 +791,9 @@ namespace Map
             ck.StatusDosar = statusDosarText.Text;
             ck.LinkDocument = linkDocumentText.Text;
             ck.AdditionalDocument = additionalDocumentText.Text;
+
+            SavePointsData(this.ImagePath, checkPoints);
+
             PopulateMetaFields();
         }
 
@@ -891,6 +906,38 @@ namespace Map
             System.Diagnostics.Process.Start(additionalDocumentText.Text);
         }
 
-        
+        private void SavePointsData(string imagePath, List<CheckPoint> ckList)
+        {
+            if (! File.Exists(imagePath))
+            {
+                return;
+            }
+
+            var imageDir = Path.GetDirectoryName(imagePath);
+            this.configPath = Path.Combine(imageDir, "config.json");
+
+            string output = JsonConvert.SerializeObject(ckList, Formatting.Indented);
+            File.WriteAllText(configPath, output);
+        }
+
+        private void LoadPointsData()
+        {
+            if (! File.Exists(this.configPath))
+            {
+                return;
+            }
+
+            string inputJson = File.ReadAllText(configPath);
+            checkPoints = JsonConvert.DeserializeObject<List<CheckPoint>>(inputJson);
+
+            foreach(CheckPoint ck in checkPoints)
+            {
+                drawing.DrawCircle((int)ck.coord_x, (int)ck.coord_y, Brushes.DeepSkyBlue);
+            }
+
+            UpdatePanels(true);
+        }
+
+
     }
 }

@@ -63,6 +63,7 @@ namespace Map
 
                 this.ImagePath = locationExplorer.GetConfigFile();
                 UpdatePanels(true);
+                LoadPointsData();
             }
             else
             {
@@ -117,7 +118,8 @@ namespace Map
                 buttons.Add(newButton);
                 this.explorerMenuPanel.Controls.Add(newButton);
             }
-        CreateBackButton();
+
+            CreateBackButton();
         }
         private void CreateBackButton()
         {
