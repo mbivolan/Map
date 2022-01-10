@@ -938,6 +938,43 @@ namespace Map
             UpdatePanels(true);
         }
 
+        private void CenterPoint(int x, int y)
+        {
+            drawing.JumpToOrigin(x + (drawing.BoundingBox.X - (drawing.BoundingBox.X * 2)), y + (drawing.BoundingBox.Y - (drawing.BoundingBox.Y * 2)), pbFull.Width, pbFull.Height);
+            UpdatePanels(true);
+        }
 
+        private void searchBtn_Click(object sender, EventArgs e)
+        {
+            if (searchTextBox.Text == null)
+            {
+                return;
+            }
+
+            int index = 0;
+            foreach (CheckPoint ck in checkPoints)
+            {
+                if (ck.Tarla == searchTextBox.Text)
+                {
+                    FloatPoint point = drawing.getUnScaledPoint(new FloatPoint(ck.coord_x, ck.coord_y));
+                    CenterPoint((int)point.X, (int)point.Y);
+
+                    numePropText.Text = ck.NumeProprietar;
+                    tarlaText.Text = ck.Tarla;
+                    parcelaText.Text = ck.Parcela;
+                    suprafataText.Text = ck.Suprafata;
+                    statusDosarText.Text = ck.StatusDosar;
+                    linkDocumentText.Text = ck.LinkDocument;
+                    additionalDocumentText.Text = ck.AdditionalDocument;
+
+                    drawing.DrawCircle((int)ck.coord_x, (int)ck.coord_y, Brushes.Black);
+                    UpdatePanels(true);
+                    lastSelectedPoint = index;
+                }
+                index++;
+            }
+
+
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace Map
 
         private List<Button> buttons = new List<Button>();
 
-        private FileExplorer locationExplorer = new FileExplorer("D:\\Cerealcom");
+        private FileExplorer locationExplorer = new FileExplorer("C:\\Users\\bivolan\\Documents\\Projects\\Root");
 
         // TEST ONLY
         private List<string> locations = new List<string>();
@@ -173,6 +173,9 @@ namespace Map
         {
             this.pbFull.Show();
             this.explorerMenuPanel.Hide();
+
+            this.searchTextBox.Enabled = true;
+            this.button2.Enabled = true;
         }
 
 

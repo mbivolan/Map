@@ -64,6 +64,9 @@ namespace Map
             this.sbVert = new System.Windows.Forms.VScrollBar();
             this.sbHoriz = new System.Windows.Forms.HScrollBar();
             this.sbPanel = new System.Windows.Forms.Panel();
+
+            this.searchTextBox = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbPanel)).BeginInit();
             this.panel1.SuspendLayout();
             this.pbFull.SuspendLayout();
@@ -425,6 +428,25 @@ namespace Map
             this.sbPanel.Name = "sbPanel";
             this.sbPanel.Size = new System.Drawing.Size(891, 568);
             this.sbPanel.TabIndex = 13;
+
+            // 
+            // searchTextBox
+            // 
+            this.searchTextBox.Location = new System.Drawing.Point(1024, 13);
+            this.searchTextBox.Name = "searchTextBox";
+            this.searchTextBox.Size = new System.Drawing.Size(167, 22);
+            this.searchTextBox.TabIndex = 22;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(943, 12);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 23;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.searchBtn_Click);
+
             // 
             // Form1
             // 
@@ -444,6 +466,8 @@ namespace Map
             this.Controls.Add(this.btnMode);
             this.Controls.Add(this.btnFitToScreen);
             this.Controls.Add(this.btnZoomIn);
+            this.Controls.Add(this.searchTextBox);
+            this.Controls.Add(this.button2);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Cerealcom";
@@ -455,6 +479,9 @@ namespace Map
             this.pbFull.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
+
+            this.searchTextBox.Enabled = false;
+            this.button2.Enabled = false;
 
             ShowExplorerMenu();
             //ShowMap();
@@ -496,6 +523,9 @@ namespace Map
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button additionalDocument;
         private System.Windows.Forms.LinkLabel additionalDocumentText;
+
+        private System.Windows.Forms.TextBox searchTextBox;
+        private System.Windows.Forms.Button button2;
     }
 }
 
