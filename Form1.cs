@@ -48,7 +48,7 @@ namespace Map
             drawEngine = new DrawEngine();
             drawing = new DrawObject(this);
             checkPoints = new List<CheckPoint>();
-            InitializeComponent();
+            InitializeWindow();
             InitControl();
         }
 
@@ -978,9 +978,9 @@ namespace Map
 
         }
 
-        private void cbZoom_SelectedIndexChanged(object sender, EventArgs e)
+        private void showMenuBtn_Click(object sender, EventArgs e)
         {
-
+            ShowExplorerMenu();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Map
 
         private List<Button> buttons = new List<Button>();
 
-        private FileExplorer locationExplorer = new FileExplorer("D:\\Cerealcom");
+        private FileExplorer locationExplorer = new FileExplorer("C:\\Users\\bivolan\\Documents\\Projects\\Root");
 
         // TEST ONLY
         private List<string> locations = new List<string>();
@@ -32,10 +32,10 @@ namespace Map
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.explorerMenuPanel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.explorerMenuPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.explorerMenuPanel.Location = new System.Drawing.Point(3, 33);
-            this.explorerMenuPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.explorerMenuPanel.Location = new System.Drawing.Point(4, 41);
+            this.explorerMenuPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.explorerMenuPanel.Name = "explorerMenuPanel";
-            this.explorerMenuPanel.Size = new System.Drawing.Size(891, 569);
+            this.explorerMenuPanel.Size = new System.Drawing.Size(1187, 700);
             this.explorerMenuPanel.TabIndex = 13;
             this.explorerMenuPanel.AutoScroll = true;
             this.explorerMenuPanel.WrapContents = false;
@@ -139,21 +139,14 @@ namespace Map
         {
             Button senderBtn = (Button)sender;
 
+            senderBtn.Dispose();
+            this.explorerMenuPanel.Controls.Remove(senderBtn);
+
+
             locationExplorer.goToBase();
 
-            if (locationExplorer.IsDocumentDir())
-            {
-                RemoveLocationButtons();
-                ShowMap();
-
-                this.ImagePath = locationExplorer.GetConfigFile();
-                UpdatePanels(true);
-            }
-            else
-            {
-                RemoveLocationButtons();
-                CreateLocationButtons();
-            }
+            RemoveLocationButtons();
+            CreateLocationButtons();
         }
 
 
@@ -165,8 +158,16 @@ namespace Map
         // TODO: These methods need to be moved in Designer
         private void ShowExplorerMenu()
         {
+            this.locationExplorer.goToBase();
+
+            RemoveLocationButtons();
+            CreateLocationButtons();
+
             this.pbFull.Hide();
             this.explorerMenuPanel.Show();
+
+            this.searchTextBox.Enabled = false;
+            this.button2.Enabled = false;
         }
 
         private void ShowMap()

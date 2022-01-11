@@ -284,11 +284,8 @@ namespace Map
                 try
                 {
                     // No memory leaks here!
-                    if (this.bmp != null)
-                    {
-                        this.bmp.Dispose();
-                        this.bmp = null;
-                    }
+                    this.bmp?.Dispose();
+                    this.bmp = null;
 
                     if (this.multiBmp != null)
                     {
@@ -301,9 +298,9 @@ namespace Map
                     // Make sure it does not crash on incorrect image formats
                     try
                     {
-                        temp = (Bitmap)Bitmap.FromFile(value);
-                        temp = new Bitmap(temp, new Size(4000, 1500));
-                        //temp = addASqare(temp, 200, 200, 300, 300);
+                        Bitmap temp2 = (Bitmap)Bitmap.FromFile(value);
+                        temp = new Bitmap(temp2, new Size(4000, 1500));
+                        temp2.Dispose();
                     }
                     catch
                     {
@@ -315,39 +312,6 @@ namespace Map
                     {
                         currentPage = 0;
 
-                        try
-                        {
-                            string extension = Path.GetExtension(value);
-
-                            if (extension == ".gif")
-                            {
-                                FrameDimension gifDimension = new FrameDimension(temp.FrameDimensionsList[0]);
-                                int gifFrames = temp.GetFrameCount(gifDimension);
-
-                                if (gifFrames > 1)
-                                {
-                                    multiFrame = true;
-                                }
-                                else
-                                {
-                                    multiFrame = false;
-                                }
-                            }
-                            else
-                            {
-                                multiFrame = false;
-
-                                //Gets the total number of frames in the .tiff file
-                                pages = temp.GetFrameCount(FrameDimension.Page);
-                                if (pages > 1) { multiPage = true; } else { multiPage = false; }
-                            }
-                        }
-                        catch
-                        {
-                            multiPage = false;
-                            pages = 1;
-                        }
-
                         if (multiPage == true)
                         {
                             this.bmp = null;
@@ -356,8 +320,9 @@ namespace Map
                         }
                         else
                         {
-                            this.bmp = temp;
+                            this.bmp = (Bitmap) temp.Clone();
                             this.multiBmp = null;
+                            temp.Dispose();
                         }
 
                         // Initial rotation
