@@ -16,7 +16,7 @@ namespace Map
 
         private List<Button> buttons = new List<Button>();
 
-        private FileExplorer locationExplorer = new FileExplorer("C:\\Users\\bivolan\\Documents\\Projects\\Root");
+        private FileExplorer locationExplorer = new FileExplorer("D:\\Cerealcom");
 
         // TEST ONLY
         private List<string> locations = new List<string>();

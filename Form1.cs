@@ -167,7 +167,7 @@ namespace Map
 
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                linkDocumentText.Text = openFileDialog.FileName;
+                linkDocumentText.Text = Path.GetFileName(openFileDialog.FileName);
             }
 
             UpdatePanels(true);
@@ -181,7 +181,8 @@ namespace Map
 
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                additionalDocumentText.Text = openFileDialog.FileName;
+
+                additionalDocumentText.Text = Path.GetFileName(openFileDialog.FileName);
             }
 
             UpdatePanels(true);
@@ -818,8 +819,8 @@ namespace Map
             parcelaText.Text = "";
             suprafataText.Text = "";
             statusDosarText.Text = "";
-            linkDocumentText.Text = "Niciun document";
-            additionalDocumentText.Text = "Niciun document aditional";
+            linkDocumentText.Text = "";
+            additionalDocumentText.Text = "";
         }
 
         private void PopulateMetaFields(CheckPoint ck)
@@ -974,6 +975,11 @@ namespace Map
                 index++;
             }
 
+
+        }
+
+        private void cbZoom_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }

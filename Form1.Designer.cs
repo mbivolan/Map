@@ -432,14 +432,14 @@ namespace Map
             // 
             // searchTextBox
             // 
-            this.searchTextBox.Location = new System.Drawing.Point(1024, 13);
+            this.searchTextBox.Location = new System.Drawing.Point(313, 7);
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(167, 22);
             this.searchTextBox.TabIndex = 22;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(943, 12);
+            this.button2.Location = new System.Drawing.Point(233, 6);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 23;
