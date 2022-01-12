@@ -168,6 +168,7 @@ namespace Map
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
                 linkDocumentText.Text = Path.GetFileName(openFileDialog.FileName);
+                linkDocumentText.Tag = openFileDialog.FileName;
             }
 
             UpdatePanels(true);
@@ -181,8 +182,8 @@ namespace Map
 
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-
                 additionalDocumentText.Text = Path.GetFileName(openFileDialog.FileName);
+                additionalDocumentText.Tag = openFileDialog.FileName;
             }
 
             UpdatePanels(true);
@@ -897,14 +898,14 @@ namespace Map
         {
             //Call the Process.Start method to open the default browser
             //with a URL:
-            System.Diagnostics.Process.Start(linkDocumentText.Text);
+            System.Diagnostics.Process.Start((string)linkDocumentText.Tag);
         }
 
         private void VisitLink2()
         {
             //Call the Process.Start method to open the default browser
             //with a URL:
-            System.Diagnostics.Process.Start(additionalDocumentText.Text);
+            System.Diagnostics.Process.Start((string)additionalDocumentText.Tag);
         }
 
         private void SavePointsData(string imagePath, List<CheckPoint> ckList)
@@ -981,6 +982,16 @@ namespace Map
         private void showMenuBtn_Click(object sender, EventArgs e)
         {
             ShowExplorerMenu();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
