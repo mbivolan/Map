@@ -23,6 +23,7 @@ namespace Map
         private DrawObject drawing;
         private DrawEngine drawEngine;
         private List<Map.CheckPoint> checkPoints;
+        private List<Map.CheckPoint> foundPoints;
         private Map.CheckPoint lastPoint;
         private bool selectMode = false;
         private bool panelDragging = false;
@@ -48,6 +49,7 @@ namespace Map
             drawEngine = new DrawEngine();
             drawing = new DrawObject(this);
             checkPoints = new List<CheckPoint>();
+            foundPoints = new List<CheckPoint>();
             InitializeWindow();
             InitControl();
         }
@@ -953,30 +955,82 @@ namespace Map
                 return;
             }
 
-            int index = 0;
             foreach (CheckPoint ck in checkPoints)
             {
                 if (ck.Tarla == searchTextBox.Text)
                 {
-                    FloatPoint point = drawing.getUnScaledPoint(new FloatPoint(ck.coord_x, ck.coord_y));
-                    CenterPoint((int)point.X, (int)point.Y);
-
-                    numePropText.Text = ck.NumeProprietar;
-                    tarlaText.Text = ck.Tarla;
-                    parcelaText.Text = ck.Parcela;
-                    suprafataText.Text = ck.Suprafata;
-                    statusDosarText.Text = ck.StatusDosar;
-                    linkDocumentText.Text = ck.LinkDocument;
-                    additionalDocumentText.Text = ck.AdditionalDocument;
-
-                    drawing.DrawCircle((int)ck.coord_x, (int)ck.coord_y, Brushes.Black);
-                    UpdatePanels(true);
-                    lastSelectedPoint = index;
+                    this.foundPoints.Add(ck);
                 }
-                index++;
             }
 
+            if (this.foundPoints.Count == 1)
+            {
+                int index = this.checkPoints.FindIndex(new_ck => new_ck.Tarla == this.foundPoints[0].Tarla);
 
+                CheckPoint ck = this.foundPoints[0];
+
+                FloatPoint point = drawing.getUnScaledPoint(new FloatPoint(ck.coord_x, ck.coord_y));
+                CenterPoint((int)point.X, (int)point.Y);
+
+                numePropText.Text = ck.NumeProprietar;
+                tarlaText.Text = ck.Tarla;
+                parcelaText.Text = ck.Parcela;
+                suprafataText.Text = ck.Suprafata;
+                statusDosarText.Text = ck.StatusDosar;
+                linkDocumentText.Text = ck.LinkDocument;
+                additionalDocumentText.Text = ck.AdditionalDocument;
+
+                drawing.DrawCircle((int)ck.coord_x, (int)ck.coord_y, Brushes.Black);
+                UpdatePanels(true);
+                lastSelectedPoint = index;
+            } else {
+                foreach (CheckPoint ck in this.foundPoints) {
+                    System.Windows.Forms.LinkLabel linkToPoint = new System.Windows.Forms.LinkLabel();
+
+                    linkToPoint.AutoSize = true;
+                    linkToPoint.Location = new System.Drawing.Point(7, 230);
+                    linkToPoint.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                    linkToPoint.Name = "linkDocumentText";
+                    linkToPoint.Size = new System.Drawing.Size(36, 17);
+                    linkToPoint.TabIndex = 12;
+                    linkToPoint.TabStop = true;
+                    linkToPoint.Text = ck.NumeProprietar;
+                    linkToPoint.Tag = this.checkPoints.FindIndex(new_ck => new_ck.NumeProprietar == ck.NumeProprietar && 
+                                                                           new_ck.Tarla == ck.Tarla);
+                    linkToPoint.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkPoint_Click);
+
+                    this.searchMenu.Controls.Add(linkToPoint);
+                }
+
+            }
+        }
+        private void linkPoint_Click(object sender, EventArgs e)
+        {
+            LinkLabel pointLink = (LinkLabel)sender;
+            int index = (int)pointLink.Tag;
+
+            CheckPoint ck = this.checkPoints[index];
+
+            FloatPoint point = drawing.getUnScaledPoint(new FloatPoint(ck.coord_x, ck.coord_y));
+            CenterPoint((int)point.X, (int)point.Y);
+
+            numePropText.Text = ck.NumeProprietar;
+            tarlaText.Text = ck.Tarla;
+            parcelaText.Text = ck.Parcela;
+            suprafataText.Text = ck.Suprafata;
+            statusDosarText.Text = ck.StatusDosar;
+            linkDocumentText.Text = ck.LinkDocument;
+            additionalDocumentText.Text = ck.AdditionalDocument;
+
+            if (lastSelectedPoint != -1)
+            {
+                CheckPoint last_ck = this.checkPoints[lastSelectedPoint];
+                drawing.DrawCircle((int)last_ck.coord_x, (int)last_ck.coord_y, Brushes.DeepSkyBlue);
+            }
+
+            drawing.DrawCircle((int)ck.coord_x, (int)ck.coord_y, Brushes.Black);
+            UpdatePanels(true);
+            lastSelectedPoint = index;
         }
 
         private void showMenuBtn_Click(object sender, EventArgs e)
