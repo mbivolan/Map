@@ -68,18 +68,18 @@ namespace Map
             this.label1 = new System.Windows.Forms.Label();
             this.saveMetaBtn = new System.Windows.Forms.Button();
             this.addDocument = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.additionalDocument = new System.Windows.Forms.Button();
             this.searchTextBox = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.showMenuBtn = new System.Windows.Forms.Button();
             this.addDocumentMenu = new System.Windows.Forms.FlowLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.searchMenu = new System.Windows.Forms.FlowLayoutPanel();
+            this.button4 = new System.Windows.Forms.Button();
             this.pbFull = new Map.PanelDoubleBuffered();
             this.sbVert = new System.Windows.Forms.VScrollBar();
             this.sbHoriz = new System.Windows.Forms.HScrollBar();
             this.sbPanel = new System.Windows.Forms.Panel();
+            this.removeDocBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbPanel)).BeginInit();
             this.panel1.SuspendLayout();
             this.addDocumentMenu.SuspendLayout();
@@ -349,7 +349,7 @@ namespace Map
             this.saveMetaBtn.Location = new System.Drawing.Point(1202, 709);
             this.saveMetaBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.saveMetaBtn.Name = "saveMetaBtn";
-            this.saveMetaBtn.Size = new System.Drawing.Size(117, 30);
+            this.saveMetaBtn.Size = new System.Drawing.Size(139, 30);
             this.saveMetaBtn.TabIndex = 19;
             this.saveMetaBtn.Text = "Save";
             this.saveMetaBtn.UseVisualStyleBackColor = true;
@@ -358,37 +358,16 @@ namespace Map
             // addDocument
             // 
             this.addDocument.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.addDocument.Location = new System.Drawing.Point(1326, 711);
+            this.addDocument.Location = new System.Drawing.Point(1202, 678);
             this.addDocument.Margin = new System.Windows.Forms.Padding(4);
             this.addDocument.Name = "addDocument";
-            this.addDocument.Size = new System.Drawing.Size(169, 28);
+            this.addDocument.Size = new System.Drawing.Size(139, 26);
             this.addDocument.TabIndex = 20;
             this.addDocument.Text = "Incarca document";
             this.addDocument.UseVisualStyleBackColor = true;
             this.addDocument.Click += new System.EventHandler(this.btnAddDocument_Click);
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(1326, 677);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(169, 28);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "Modificare status";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // additionalDocument
-            // 
-            this.additionalDocument.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.additionalDocument.Location = new System.Drawing.Point(1326, 648);
-            this.additionalDocument.Margin = new System.Windows.Forms.Padding(4);
-            this.additionalDocument.Name = "additionalDocument";
-            this.additionalDocument.Size = new System.Drawing.Size(169, 28);
-            this.additionalDocument.TabIndex = 21;
-            this.additionalDocument.Text = "Adauga Act Aditional";
-            this.additionalDocument.UseVisualStyleBackColor = true;
-            this.additionalDocument.Click += new System.EventHandler(this.additionalDocument_Click);
+            
+
             // 
             // searchTextBox
             // 
@@ -433,6 +412,8 @@ namespace Map
             this.addDocumentMenu.Name = "addDocumentMenu";
             this.addDocumentMenu.Size = new System.Drawing.Size(297, 201);
             this.addDocumentMenu.TabIndex = 24;
+            this.addDocumentMenu.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.addDocumentMenu.WrapContents = false;
             // 
             // label3
             // 
@@ -455,6 +436,17 @@ namespace Map
             this.searchMenu.Size = new System.Drawing.Size(297, 201);
             this.searchMenu.TabIndex = 25;
             this.searchMenu.WrapContents = false;
+            // 
+            // button4
+            // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.Location = new System.Drawing.Point(1347, 711);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(148, 27);
+            this.button4.TabIndex = 27;
+            this.button4.Text = "Sterge";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // pbFull
             // 
@@ -511,18 +503,29 @@ namespace Map
             this.sbPanel.Size = new System.Drawing.Size(841, 608);
             this.sbPanel.TabIndex = 13;
             // 
+            // removeDocBtn
+            // 
+            this.removeDocBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.removeDocBtn.Location = new System.Drawing.Point(1348, 678);
+            this.removeDocBtn.Name = "removeDocBtn";
+            this.removeDocBtn.Size = new System.Drawing.Size(147, 27);
+            this.removeDocBtn.TabIndex = 28;
+            this.removeDocBtn.Text = "Sterge Document";
+            this.removeDocBtn.UseVisualStyleBackColor = true;
+            this.removeDocBtn.Click += new System.EventHandler(this.removeDocBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1499, 742);
+            this.Controls.Add(this.removeDocBtn);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.searchTextBox);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.searchMenu);
             this.Controls.Add(this.addDocumentMenu);
             this.Controls.Add(this.showMenuBtn);
-            this.Controls.Add(this.additionalDocument);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.addDocument);
             this.Controls.Add(this.saveMetaBtn);
             this.Controls.Add(this.label1);
@@ -583,8 +586,6 @@ namespace Map
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.LinkLabel linkDocumentText;
         private System.Windows.Forms.Button addDocument;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button additionalDocument;
         private System.Windows.Forms.LinkLabel additionalDocumentText;
 
         private System.Windows.Forms.TextBox searchTextBox;
@@ -593,6 +594,8 @@ namespace Map
         private System.Windows.Forms.FlowLayoutPanel addDocumentMenu;
         private System.Windows.Forms.FlowLayoutPanel searchMenu;
         private System.Windows.Forms.Label label3;
+        private Button button4;
+        private Button removeDocBtn;
     }
 }
 

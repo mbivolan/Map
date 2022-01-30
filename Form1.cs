@@ -32,6 +32,27 @@ namespace Map
         private bool enableNewPoint = true;
         private string imagePath;
         private string configPath;
+        private bool deleteDocs
+        {
+            get
+            {
+                return _deleteDocs;
+            }
+            set
+            {
+                _deleteDocs = value;
+                if (value)
+                {
+                    this.removeDocBtn.Text = "Anuleaza";
+                } else
+                {
+                    this.removeDocBtn.Text = "Sterge Document";
+                }
+                this.Refresh();
+            }
+        }
+
+        private bool _deleteDocs = false;
 
         private int selectedPointNumber = -1;
         private int lastSelectedPoint = -1;
@@ -161,21 +182,105 @@ namespace Map
             LoadPointsData();
         }
 
-        private void btnAddDocument_Click(object sender, EventArgs e)
+        private void cleanDocumentView()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            openFileDialog.Filter = "Fisiere PDF|*.pdf|All files (*.*)|*.*";
-
-            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+            /*
+            foreach (Control ctr in this.addDocumentMenu.Controls)
             {
-                linkDocumentText.Text = Path.GetFileName(openFileDialog.FileName);
-                linkDocumentText.Tag = openFileDialog.FileName;
+                if (ctr.Name == "linkDocumentText")
+                {
+                    this.addDocumentMenu.Controls.Remove(ctr);
+                }
+            }
+            */
+            int i = 0; 
+            while(i < this.addDocumentMenu.Controls.Count)
+            {
+                if (this.addDocumentMenu.Controls[i].Name == "linkDocumentText")
+                {
+                    this.addDocumentMenu.Controls.RemoveAt(i);
+                } else
+                {
+                    i++;
+                }
             }
 
-            UpdatePanels(true);
+            this.addDocumentMenu.PerformLayout();
         }
-        
+
+        private void refreshDocumentView(CheckPoint ck)
+        {
+            cleanDocumentView();
+            foreach (string fileName in ck.AdditionalDocument)
+            {
+                System.Windows.Forms.LinkLabel linkToPoint = new System.Windows.Forms.LinkLabel();
+
+                linkToPoint.AutoSize = true;
+                linkToPoint.Location = new System.Drawing.Point(7, 230);
+                linkToPoint.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                linkToPoint.Name = "linkDocumentText";
+                linkToPoint.Size = new System.Drawing.Size(36, 17);
+                linkToPoint.TabIndex = 12;
+                linkToPoint.TabStop = true;
+                linkToPoint.Text = Path.GetFileName(fileName);
+                linkToPoint.Tag = fileName;
+                linkToPoint.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkDoc_Click);
+
+                this.addDocumentMenu.Controls.Add(linkToPoint);
+            }
+        }
+
+        private void removeDocBtn_Click(object sender, EventArgs e)
+        {
+            if (this._deleteDocs)
+            {
+                refreshDocumentView(this.checkPoints[lastSelectedPoint]);
+                this.deleteDocs = false;
+            } else
+            {
+                this.deleteDocs = true;
+            }
+        }
+
+        private void linkDoc_Click(object sender, EventArgs e)
+        {
+            if (this._deleteDocs)
+            {
+                this.addDocumentMenu.Controls.Remove((LinkLabel)sender);
+            } else
+            {
+                System.Diagnostics.Process.Start((string)((LinkLabel)sender).Tag);
+            }
+        }
+
+        private void btnAddDocument_Click(object sender, EventArgs e)
+        {
+            /*
+            System.Diagnostics.Process.Start((string)linkDocumentText.Tag);
+
+            UpdatePanels(true);
+            */
+
+            if (lastSelectedPoint == -1)
+            {
+                return;
+            }
+
+            CheckPoint ck = this.checkPoints[lastSelectedPoint];
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Fisiere PDF|*.pdf|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                ck.AdditionalDocument.Add(openFileDialog.FileName);
+
+                refreshDocumentView(ck);
+            }
+
+        }
+
+
+
         private void additionalDocument_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -354,6 +459,7 @@ namespace Map
         private void pbFull_MouseDown(object sender, MouseEventArgs e)
         {
             selectedPointNumber = getClickedCircle(drawing.getScaledPoint(new FloatPoint(e.X, e.Y)));
+            cleanDocumentView();
 
             if (lastSelectedPoint != -1)
             {
@@ -388,6 +494,8 @@ namespace Map
 
                     selectMode = false;
                     this.btnMode.Image = Map.Properties.Resources.btnSelect;
+                    cleanDocumentView();
+                    SavePointsData(this.ImagePath, checkPoints);
                 }
                 else if (selectedPointNumber != -1)
                 {
@@ -397,14 +505,16 @@ namespace Map
                     suprafataText.Text = checkPoints.ElementAt(selectedPointNumber).Suprafata;
                     statusDosarText.Text = checkPoints.ElementAt(selectedPointNumber).StatusDosar;
                     linkDocumentText.Text = checkPoints.ElementAt(selectedPointNumber).LinkDocument;
-                    additionalDocumentText.Text = checkPoints.ElementAt(selectedPointNumber).AdditionalDocument;
+                    //additionalDocumentText.Text = checkPoints.ElementAt(selectedPointNumber).AdditionalDocument;
 
                     lastSelectedPoint = selectedPointNumber;
+                    refreshDocumentView(checkPoints.ElementAt(selectedPointNumber));
                     var ck = checkPoints.ElementAt(lastSelectedPoint);
                     drawing.DrawCircle((int)ck.coord_x, (int)ck.coord_y, Brushes.Black);
                 }
                 else
                 {
+                    cleanDocumentView();
                     selectedPointNumber = -1;
                     lastSelectedPoint = -1;
                     PopulateMetaFields();
@@ -794,7 +904,17 @@ namespace Map
             ck.Suprafata = suprafataText.Text;
             ck.StatusDosar = statusDosarText.Text;
             ck.LinkDocument = linkDocumentText.Text;
-            ck.AdditionalDocument = additionalDocumentText.Text;
+            //ck.AdditionalDocument = additionalDocumentText.Text;
+
+            ck.AdditionalDocument.Clear();
+
+            foreach (Control ctr in this.addDocumentMenu.Controls)
+            {
+                if (ctr.Name == "linkDocumentText")
+                {
+                    ck.AdditionalDocument.Add((string)ctr.Tag);
+                }
+            }
 
             SavePointsData(this.ImagePath, checkPoints);
 
@@ -834,7 +954,6 @@ namespace Map
             suprafataText.Text = ck.Suprafata;
             statusDosarText.Text = ck.StatusDosar;
             linkDocumentText.Text = ck.LinkDocument;
-            additionalDocumentText.Text = ck.AdditionalDocument;
         }
 
         private void label6_Click(object sender, EventArgs e)
@@ -948,12 +1067,33 @@ namespace Map
             UpdatePanels(true);
         }
 
+        private void cleanSearchView()
+        {
+            int i = 0;
+            while (i < this.searchMenu.Controls.Count)
+            {
+                if (this.searchMenu.Controls[i].Name == "linkDocumentText")
+                {
+                    this.searchMenu.Controls.RemoveAt(i);
+                }
+                else
+                {
+                    i++;
+                }
+            }
+        }
+
         private void searchBtn_Click(object sender, EventArgs e)
         {
             if (searchTextBox.Text == null)
             {
                 return;
             }
+
+            cleanSearchView();
+
+            this.foundPoints.Clear();
+
 
             foreach (CheckPoint ck in checkPoints)
             {
@@ -978,7 +1118,7 @@ namespace Map
                 suprafataText.Text = ck.Suprafata;
                 statusDosarText.Text = ck.StatusDosar;
                 linkDocumentText.Text = ck.LinkDocument;
-                additionalDocumentText.Text = ck.AdditionalDocument;
+                //additionalDocumentText.Text = ck.AdditionalDocument;
 
                 drawing.DrawCircle((int)ck.coord_x, (int)ck.coord_y, Brushes.Black);
                 UpdatePanels(true);
@@ -1020,7 +1160,7 @@ namespace Map
             suprafataText.Text = ck.Suprafata;
             statusDosarText.Text = ck.StatusDosar;
             linkDocumentText.Text = ck.LinkDocument;
-            additionalDocumentText.Text = ck.AdditionalDocument;
+            //additionalDocumentText.Text = ck.AdditionalDocument;
 
             if (lastSelectedPoint != -1)
             {
@@ -1047,5 +1187,23 @@ namespace Map
         {
 
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (lastSelectedPoint == -1)
+            {
+                return;
+            }
+            CheckPoint last_ck = this.checkPoints[lastSelectedPoint];
+            drawing.DrawCircle((int)last_ck.coord_x, (int)last_ck.coord_y, Brushes.White);
+            UpdatePanels(true);
+
+            this.checkPoints.RemoveAt(lastSelectedPoint);
+            SavePointsData(this.ImagePath, checkPoints);
+
+            this.lastSelectedPoint = -1;
+            enableNewPoint = true;
+        }
+
     }
 }

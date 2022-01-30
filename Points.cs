@@ -14,9 +14,14 @@ namespace Map
         public string Suprafata;
         public string StatusDosar;
         public string LinkDocument;
-        public string AdditionalDocument;
+        public List<string> AdditionalDocument;
 
         public int coord_x;
         public int coord_y;
+
+        public CheckPoint()
+        {
+            this.AdditionalDocument = new List<string>();
+        }
     }
 }
