@@ -53,6 +53,7 @@ namespace Map
             this.lblNavigation = new System.Windows.Forms.Label();
             this.panelNavigation = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panelTarla = new System.Windows.Forms.FlowLayoutPanel();
             this.additionalDocumentText = new System.Windows.Forms.LinkLabel();
             this.linkDocumentText = new System.Windows.Forms.LinkLabel();
             this.statusDosarText = new System.Windows.Forms.TextBox();
@@ -82,6 +83,7 @@ namespace Map
             this.removeDocBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbPanel)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panelTarla.SuspendLayout();
             this.addDocumentMenu.SuspendLayout();
             this.pbFull.SuspendLayout();
             this.SuspendLayout();
@@ -215,6 +217,17 @@ namespace Map
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(297, 132);
             this.panel1.TabIndex = 17;
+            // 
+            // panelTarla
+            // 
+            this.panelTarla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelTarla.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panelTarla.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelTarla.Location = new System.Drawing.Point(1198, 41);
+            this.panelTarla.Margin = new System.Windows.Forms.Padding(4);
+            this.panelTarla.Name = "panelTarla";
+            this.panelTarla.Size = new System.Drawing.Size(297, 132);
+            this.panelTarla.TabIndex = 17;
             // 
             // additionalDocumentText
             // 
@@ -530,6 +543,7 @@ namespace Map
             this.Controls.Add(this.saveMetaBtn);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panelTarla);
             this.Controls.Add(this.btnZoomOut);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.pbFull);
@@ -546,6 +560,10 @@ namespace Map
             ((System.ComponentModel.ISupportInitialize)(this.pbPanel)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            //this.panel1.Hide();
+            this.panelTarla.Hide();
+            this.panelTarla.ResumeLayout(false);
+            this.panelTarla.PerformLayout();
             this.addDocumentMenu.ResumeLayout(false);
             this.addDocumentMenu.PerformLayout();
             this.pbFull.ResumeLayout(false);
@@ -572,6 +590,7 @@ namespace Map
         private System.Windows.Forms.Label lblNavigation;
         private System.Windows.Forms.Panel panelNavigation;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.FlowLayoutPanel panelTarla;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox numePropText;
