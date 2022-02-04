@@ -419,8 +419,7 @@ namespace Map
             List<string> listaTarlale = new List<string>();
             string name = docName.Replace(".pdf", "");
             char ch = '-';
-            int count;
-            count = name.Count(f => (f == ch));
+            int count = name.Count(f => (f == ch));
             if (count > 1)
             {
                 string[] subs = name.Split('-');
@@ -437,7 +436,7 @@ namespace Map
                     Console.WriteLine($"Substring: {sub}");
                     bool letter = sub.All(c => Char.IsLetter(c) || c == ' ');
                     bool digit = sub.All(Char.IsLetterOrDigit);
-                    if (letter == true && sub.Length > 1 || sub.Contains('+'))
+                    if (letter == true && sub.Length > 2 && sub != "cesiune" || sub.Contains('+'))
                     {
                         this.numePropText.Text = sub; // Completeaza numele
                     }
@@ -449,13 +448,12 @@ namespace Map
 
                         this.tarlaText.Text = this.tarlaText.Text + ("//" + matchTarla);
                         this.parcelaText.Text = this.parcelaText.Text + ("//" + matchParcela);
-                        //Console.WriteLine(1110);
                     }
                     else if (digit == true && sub.Contains('c')) // Completeaza status dosar
                     {
                         this.statusDosarText.Text = sub;
                     }
-                    else if (sub.Contains('s')) // Completeaza status dosar
+                    else if (sub.Contains('s') || sub.Contains("sc") || sub.Contains("cesiune")) // Completeaza status dosar
                     {
                         this.statusDosarText.Text = sub;
                     }
@@ -465,9 +463,50 @@ namespace Map
             {
                 this.parcelaText.Text = "false";
                 return;
-                //Console.WriteLine(count);
             }
             cleanTarlaView();
+
+            List<Button> buttons = new List<Button>();
+
+            this.panel1.Hide();
+            this.panelTarla.Show();
+            foreach (string item in listaTarlale)
+            {
+
+                //Create buttons
+                Button tarlaButton = new System.Windows.Forms.Button();
+                // TODO: Beutify buttons
+                tarlaButton.Margin = new System.Windows.Forms.Padding(3);
+                tarlaButton.Size = new System.Drawing.Size(139, 25);
+                tarlaButton.Name = "numarTarla";
+                tarlaButton.Text = item;
+                tarlaButton.Tag = new List<string>();
+                // TODO: Pun them in enums
+                (tarlaButton.Tag as List<string>).Add(item);
+                (tarlaButton.Tag as List<string>).Add("numarTarla" + item);
+                tarlaButton.Click += new System.EventHandler(this.chooseButton_Click);
+
+                buttons.Add(tarlaButton);
+                this.panelTarla.Controls.Add(tarlaButton);
+                Console.WriteLine(item); //
+                Console.WriteLine("/////////////\\\\\\\\\\\\"); //
+
+            }
+        }
+
+        private void chooseButton_Click(object sender, EventArgs e)
+        {
+            string s = (sender as Button).Text;
+            s = s.Replace(" ", "");
+            var matchTarla = Regex.Match(s, @"T(.+?)P").Groups[1].Value; // Atribuie numarul tarlalei
+            var matchParcela = Regex.Match(s, @"P(.*)").Groups[1].Value; // Atribuie  numarul parcelei
+
+            char c = '+';
+            int cnt = this.numePropText.Text.Count(f => (f == c));
+            Console.Write(cnt);
+            Console.Write("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
+
 
 
             var path = @"D:\test.csv";
@@ -494,76 +533,34 @@ namespace Map
                     DataItems.Add(cd);
 
                 }
-                foreach (ColumnData data in DataItems)
+
+                if (cnt > 0)
                 {
-                    string tarla = this.tarlaText.Text;
-                    string parcela = this.parcelaText.Text;
-                    tarla = tarla.Replace("/", "");
-                    parcela = parcela.Replace("/", "");
-                    //Console.WriteLine(tarla);
-                    //Console.WriteLine(parcela);
-
-
-                    List<Button> buttons = new List<Button>();
-
-                    if (checkForMultiple == true)
+                    string[] subs = this.numePropText.Text.Split('+');
+                    foreach (string nume in subs)
                     {
-                        this.panel1.Hide();
-                        this.panelTarla.Show();
-                        foreach (string item in listaTarlale)
+                        foreach (ColumnData data in DataItems)
                         {
-
-                            //Create buttons
-                            Button tarlaButton = new System.Windows.Forms.Button();
-                            // TODO: Beutify buttons
-                            tarlaButton.Margin = new System.Windows.Forms.Padding(3);
-                            tarlaButton.Size = new System.Drawing.Size(139, 25);
-                            tarlaButton.Name = "numarTarla";
-                            tarlaButton.Text = item;
-                            tarlaButton.Tag = new List<string>();
-                            // TODO: Pun them in enums
-                            (tarlaButton.Tag as List<string>).Add(item);
-                            (tarlaButton.Tag as List<string>).Add("numarTarla" + item);
-                            tarlaButton.Click += new System.EventHandler(this.chooseButton_Click);
-
-                            buttons.Add(tarlaButton);
-                            this.panelTarla.Controls.Add(tarlaButton);
-                            Console.WriteLine(item); //
-                            Console.WriteLine("/////////////\\\\\\\\\\\\"); //
-
+                            if (data.Nume.ToLower() == nume && data.Tarla == matchTarla && data.Parcela == matchParcela)
+                            {
+                                this.suprafataText.Text = data.Suprafata;
+                                break;
+                            }
                         }
-
                     }
-
-                    if (data.Nume.ToLower() == this.numePropText.Text && data.Tarla == tarla && data.Parcela == parcela)
+                    Console.WriteLine("is ok");
+                }
+                else{
+                    foreach (ColumnData data in DataItems)
                     {
-                        Console.WriteLine("Found person"); //
-                        Console.WriteLine("Nume: " + data.Nume); //
-                        this.suprafataText.Text = data.Suprafata;
-                        Console.WriteLine("Suprafata: " + data.Suprafata); //
-                        break;
-                    }
-                    else
-                    {
-                        return;
+                        if (data.Nume.ToLower() == this.numePropText.Text && data.Tarla == matchTarla && data.Parcela == matchParcela)
+                        {
+                            this.suprafataText.Text = data.Suprafata;
+                            break;
+                        }
                     }
                 }
-            }
-        }
 
-        private void chooseButton_Click(object sender, EventArgs e)
-        {
-            string s = (sender as Button).Text;
-            s = s.Replace(" ", "");
-            var matchTarla = Regex.Match(s, @"t(.+?)p").Groups[1].Value; // Atribuie numarul tarlalei
-            var matchParcela = Regex.Match(s, @"p(.*)").Groups[1].Value; // Atribuie  numarul parcelei
-            foreach (ColumnData data in DataItems)
-            {
-                if (data.Nume.ToLower() == this.numePropText.Text && data.Tarla == matchTarla && data.Parcela == matchParcela)
-                {
-                    this.suprafataText.Text = data.Suprafata;
-                    break;
-                }
             }
             Console.WriteLine(s);
             this.panel1.Show();
