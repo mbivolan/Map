@@ -106,7 +106,7 @@ namespace Map
                 // TODO: Beutify buttons
                 newButton.Margin = new System.Windows.Forms.Padding(5);
                 newButton.Size = new System.Drawing.Size(300, 50);
-
+                newButton.Cursor = System.Windows.Forms.Cursors.Hand;
                 newButton.Name = "btnLocation" + placeName;
                 newButton.Text = placeName;
                 newButton.Tag = new List<string>();
@@ -125,6 +125,7 @@ namespace Map
         {
             Button btnBack = new System.Windows.Forms.Button();
             btnBack.Margin = new System.Windows.Forms.Padding(5);
+            btnBack.Cursor = System.Windows.Forms.Cursors.Hand;
             btnBack.Size = new System.Drawing.Size(100, 50);
             btnBack.Name = "btnBack";
             btnBack.Text = "Back";

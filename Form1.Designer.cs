@@ -91,6 +91,7 @@ namespace Map
             // btnOpen
             // 
             this.btnOpen.Image = global::Map.Properties.Resources.btnOpen;
+            this.btnOpen.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnOpen.Location = new System.Drawing.Point(4, 6);
             this.btnOpen.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnOpen.Name = "btnOpen";
@@ -118,6 +119,7 @@ namespace Map
             // btnMode
             // 
             this.btnMode.Image = global::Map.Properties.Resources.btnSelect;
+            this.btnMode.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMode.Location = new System.Drawing.Point(868, 4);
             this.btnMode.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnMode.Name = "btnMode";
@@ -129,6 +131,7 @@ namespace Map
             // btnFitToScreen
             // 
             this.btnFitToScreen.Image = global::Map.Properties.Resources.btnFitToScreen;
+            this.btnFitToScreen.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnFitToScreen.Location = new System.Drawing.Point(1003, 6);
             this.btnFitToScreen.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnFitToScreen.Name = "btnFitToScreen";
@@ -140,6 +143,7 @@ namespace Map
             // btnZoomIn
             // 
             this.btnZoomIn.Image = global::Map.Properties.Resources.btnZoomIn;
+            this.btnZoomIn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnZoomIn.Location = new System.Drawing.Point(915, 4);
             this.btnZoomIn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnZoomIn.Name = "btnZoomIn";
@@ -151,6 +155,7 @@ namespace Map
             // btnZoomOut
             // 
             this.btnZoomOut.Image = global::Map.Properties.Resources.btnZoomOut;
+            this.btnZoomOut.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnZoomOut.Location = new System.Drawing.Point(958, 6);
             this.btnZoomOut.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnZoomOut.Name = "btnZoomOut";
@@ -359,6 +364,7 @@ namespace Map
             // saveMetaBtn
             // 
             this.saveMetaBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.saveMetaBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.saveMetaBtn.Location = new System.Drawing.Point(1202, 709);
             this.saveMetaBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.saveMetaBtn.Name = "saveMetaBtn";
@@ -371,6 +377,7 @@ namespace Map
             // addDocument
             // 
             this.addDocument.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.addDocument.Cursor = System.Windows.Forms.Cursors.Hand;
             this.addDocument.Location = new System.Drawing.Point(1202, 678);
             this.addDocument.Margin = new System.Windows.Forms.Padding(4);
             this.addDocument.Name = "addDocument";
@@ -395,6 +402,7 @@ namespace Map
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.Enabled = false;
             this.button2.Location = new System.Drawing.Point(1198, 400);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
@@ -408,6 +416,7 @@ namespace Map
             // showMenuBtn
             // 
             this.showMenuBtn.Location = new System.Drawing.Point(45, 6);
+            this.showMenuBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.showMenuBtn.Name = "showMenuBtn";
             this.showMenuBtn.Size = new System.Drawing.Size(75, 29);
             this.showMenuBtn.TabIndex = 0;
@@ -453,6 +462,7 @@ namespace Map
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button4.Location = new System.Drawing.Point(1347, 711);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(148, 27);
@@ -519,6 +529,7 @@ namespace Map
             // removeDocBtn
             // 
             this.removeDocBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.removeDocBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.removeDocBtn.Location = new System.Drawing.Point(1348, 678);
             this.removeDocBtn.Name = "removeDocBtn";
             this.removeDocBtn.Size = new System.Drawing.Size(147, 27);
