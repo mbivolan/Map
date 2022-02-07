@@ -56,7 +56,7 @@ namespace Map
             this.panelTarla = new System.Windows.Forms.FlowLayoutPanel();
             this.additionalDocumentText = new System.Windows.Forms.LinkLabel();
             this.linkDocumentText = new System.Windows.Forms.LinkLabel();
-            this.statusDosarText = new System.Windows.Forms.TextBox();
+            this.statusDosarText = new System.Windows.Forms.ComboBox();
             this.suprafataText = new System.Windows.Forms.TextBox();
             this.parcelaText = new System.Windows.Forms.TextBox();
             this.tarlaText = new System.Windows.Forms.TextBox();
@@ -609,7 +609,7 @@ namespace Map
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox statusDosarText;
+        private System.Windows.Forms.ComboBox statusDosarText;
         private System.Windows.Forms.TextBox suprafataText;
         private System.Windows.Forms.TextBox parcelaText;
         private System.Windows.Forms.TextBox tarlaText;

@@ -946,8 +946,8 @@ namespace Map
                 {
                     Graphics g = Graphics.FromImage(this.bmp);
                     Pen myPen = new Pen(pointColor);
-                    DrawCircle(g, myPen, (int)x, (int)y, 20);
-                    FillCircle(g, pointColor, (int)x, (int)y, 20);
+                    DrawCircle(g, myPen, (int)x, (int)y, 10);
+                    FillCircle(g, pointColor, (int)x, (int)y, 10);
                     myPen.Dispose();
                     g.Dispose();
 

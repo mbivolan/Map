@@ -85,6 +85,7 @@ namespace Map
             DataItems = new List<ColumnData>();
             InitializeWindow();
             InitControl();
+            addStatus();
         }
 
         public Size OriginalSize
@@ -273,6 +274,21 @@ namespace Map
             }
         }
 
+        private void selectItem(string substring)
+        {
+            int index = 0;
+            foreach (var item in statusDosarText.Items)
+            {
+                string sts = (string)item;
+                if (sts.ToLower().Contains(substring + " -"))
+                {
+                    this.statusDosarText.SelectedIndex = this.statusDosarText.Items.IndexOf(item);
+                }
+                //this.statusDosarText.Text = sub;
+                index++;
+            }
+        }
+
         private void populateFields(string docName)
         {
             bool checkForMultiple = false;
@@ -311,11 +327,11 @@ namespace Map
                     }
                     else if (digit == true && sub.Contains('c')) // Completeaza status dosar
                     {
-                        this.statusDosarText.Text = sub;
+                        selectItem(sub);
                     }
-                    else if (sub.Contains('s') || sub.Contains("sc") || sub.Contains("cesiune")) // Completeaza status dosar
+                    else if ( sub.Contains("cvcp") || sub.Contains("cesiune") || sub.Contains("sc") || sub.Contains('s')) // Completeaza status dosar
                     {
-                        this.statusDosarText.Text = sub;
+                        selectItem(sub);
                     }
                 }
             }
@@ -1357,6 +1373,45 @@ namespace Map
             this.lastSelectedPoint = -1;
             enableNewPoint = true;
         }
-
+        private void addStatus()
+        {
+            var listaStatus = new List<string> {
+                ("C0 - GOL"),
+                ("C1 - Anexa 24"),
+                ("C2 - Cere bani"),
+                ("C3 - CI expirat"),
+                ("C4 - Datorii"),
+                ("C6 - De modificat CM"),
+                ("C7 - Decedat si nu are mostenitori"),
+                ("C8 - Inscriere in CF"),
+                ("C9 - Lipsa acte"),
+                ("C10 - Nu are loc in tarla"),
+                ("C11 - Nu are toare actele"),
+                ("C12 - Rectificare TDP"),
+                ("C13 - Succesiune"),
+                ("C14 - Sulte"),
+                ("C15 - Suprapunere"),
+                ("C16 - TDP gresit"),
+                ("C17 - Vandut la altii"),
+                ("C18 - Cota indiviziune"),
+                ("C19 - Dezmembrare"),
+                ("C20 - Dat la cadastru"),
+                ("C21 - De facut publicitate"),
+                ("C22 - La publicitate"),
+                ("C23 - De dat la instanta"),
+                ("C24 - Ipoteca"),
+                ("C25 - Decedat cu mostenitori"),
+                ("C26 - De luat TDP din arhiva"),
+                ("C27 - Tarla gresita in sentinta"),
+                ("Cesiune - Cesiune"),
+                ("SC - Sentinta cu cadastru CF"),
+                ("S - Sentinta fara cadastru"),
+                ("CVCP - Notariat CVC cu probleme"),
+            };
+            foreach (string entry in listaStatus)
+            {
+                this.statusDosarText.Items.Add(entry);
+            }
+        }
     }
 }
