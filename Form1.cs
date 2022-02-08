@@ -14,6 +14,7 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace Map
 {
+    //Brush brshSelect;
     public struct ColumnData
     {
         public string Nume { get; set; }
@@ -33,7 +34,6 @@ namespace Map
         private DrawEngine drawEngine;
         private List<Map.CheckPoint> checkPoints;
         private List<Map.CheckPoint> foundPoints;
-        private Map.CheckPoint lastPoint;
         private bool selectMode = false;
         private bool panelDragging = false;
         private bool isScrolling = false;
@@ -62,7 +62,23 @@ namespace Map
                 this.Refresh();
             }
         }
+        /// <summary>
+        /// Brushes for every firm
+        /// </summary>
+        private void bushType()
+        {
+            string anghel = "ANGHEL MIHAI";
+            string cerealcom = "CEREALCOM DOLJ";
+            string cervina = "CERVINA";
+            string oltyre = "OLTYRE";
+            string redias = "REDIAS REDEA";
+            if (imagePath.Contains(anghel))
+            {
+                //this.brushSelect = 
+            }
 
+        }
+        
         private bool _deleteDocs = false;
 
         private int selectedPointNumber = -1;
@@ -276,7 +292,6 @@ namespace Map
 
         private void selectItem(string substring)
         {
-            int index = 0;
             foreach (var item in statusDosarText.Items)
             {
                 string sts = (string)item;
@@ -284,14 +299,11 @@ namespace Map
                 {
                     this.statusDosarText.SelectedIndex = this.statusDosarText.Items.IndexOf(item);
                 }
-                //this.statusDosarText.Text = sub;
-                index++;
             }
         }
 
         private void populateFields(string docName)
         {
-            bool checkForMultiple = false;
             List<string> listaTarlale = new List<string>();
             string name = docName.Replace(".pdf", "");
             char ch = '-';
@@ -299,17 +311,8 @@ namespace Map
             if (count > 1)
             {
                 string[] subs = name.Split('-');
-                Console.WriteLine("/////////////////////");
-                Console.WriteLine(subs.Length);
-
-                if (subs.Length > 3)
-                {
-                    checkForMultiple = true;
-                }
-
                 foreach (string sub in subs)
                 {
-                    Console.WriteLine($"Substring: {sub}");
                     bool letter = sub.All(c => Char.IsLetter(c) || c == ' ');
                     bool digit = sub.All(Char.IsLetterOrDigit);
                     if (letter == true && sub.Length > 2 && sub != "cesiune" || sub.Contains('+'))
@@ -364,9 +367,6 @@ namespace Map
 
                 buttons.Add(tarlaButton);
                 this.panelTarla.Controls.Add(tarlaButton);
-                Console.WriteLine(item); //
-                Console.WriteLine("/////////////\\\\\\\\\\\\"); //
-
             }
         }
 
@@ -379,11 +379,6 @@ namespace Map
 
             char c = '+';
             int cnt = this.numePropText.Text.Count(f => (f == c));
-            Console.Write(cnt);
-            Console.Write("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-
-
-
 
             var path = @"D:\test.csv";
             using (TextFieldParser csvReader = new TextFieldParser(path))
@@ -424,13 +419,12 @@ namespace Map
                             }
                         }
                     }
-                    Console.WriteLine("is ok");
                 }
             }
-            Console.WriteLine(s);
             this.panel1.Show();
             this.panelTarla.Hide();
             cleanTarlaView();
+            Console.WriteLine(imagePath);
         }
 
         /// ///////////////////////////////////////////////////////
@@ -1328,7 +1322,6 @@ namespace Map
             suprafataText.Text = ck.Suprafata;
             statusDosarText.Text = ck.StatusDosar;
             linkDocumentText.Text = ck.LinkDocument;
-            //additionalDocumentText.Text = ck.AdditionalDocument;
 
             if (lastSelectedPoint != -1)
             {

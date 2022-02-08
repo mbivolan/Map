@@ -102,6 +102,12 @@ namespace Map
             foreach (string placeName in locations)
             {
                 Button newButton = new System.Windows.Forms.Button();
+                Console.WriteLine(placeName);
+                // Limit
+                if (placeName != "CERVINA" && placeName != "BARCA")
+                {
+                    newButton.Enabled = false;
+                }
 
                 // TODO: Beutify buttons
                 newButton.Margin = new System.Windows.Forms.Padding(5);
@@ -118,7 +124,6 @@ namespace Map
                 buttons.Add(newButton);
                 this.explorerMenuPanel.Controls.Add(newButton);
             }
-
             CreateBackButton();
         }
         private void CreateBackButton()

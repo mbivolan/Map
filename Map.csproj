@@ -101,6 +101,7 @@
   <ItemGroup>
     <Content Include="Resources\btnDrag.png" />
     <Content Include="Resources\btnFitToScreen.png" />
+    <Content Include="Resources\btnMode.png" />
     <Content Include="Resources\btnOpen.png" />
     <Content Include="Resources\btnSelect.png" />
     <Content Include="Resources\btnZoomIn.png" />
