@@ -11,6 +11,7 @@ namespace Map.Components.Tools
     {
         private string explorerPath;
         private string basePath;
+        
 
         public FileExplorer(string path)
         {
@@ -44,6 +45,25 @@ namespace Map.Components.Tools
             }
 
             return dirList;
+        }
+
+        public List<string> getPngList()
+        {
+            List<string> pngList = new List<string>();
+            foreach (string fileName in Directory.GetFiles(this.explorerPath))
+            {
+                if (Path.GetExtension(fileName) == ".png")
+                {
+                    pngList.Add(fileName);
+                }
+            }
+            return pngList;
+        }
+
+        public int pngListCount()
+        {
+            int cnt = getPngList().Count();
+            return cnt;
         }
 
         public bool IsDocumentDir()

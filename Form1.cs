@@ -74,7 +74,7 @@ namespace Map
             string redias = "REDIAS REDEA";
             if (imagePath.Contains(anghel))
             {
-                //this.brushSelect = 
+                Brush brushSelect = Brushes.Blue;
             }
 
         }
@@ -424,7 +424,6 @@ namespace Map
             this.panel1.Show();
             this.panelTarla.Hide();
             cleanTarlaView();
-            Console.WriteLine(imagePath);
         }
 
         /// ///////////////////////////////////////////////////////

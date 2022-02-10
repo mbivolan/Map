@@ -48,6 +48,7 @@ namespace Map
 
             CreateLocationButtons();
         }
+        
 
         private void locationButton_Click(object sender, EventArgs e)
         {
@@ -57,13 +58,24 @@ namespace Map
 
             if (locationExplorer.IsDocumentDir())
             {
-                RemoveLocationButtons();
+                if (locationExplorer.pngListCount() > 1)
+                {
+                    RemoveLocationButtons();
+                    CreatePngButton();
+                    CreateBackButton();
+                }
 
-                ShowMap();
+                else
+                {
+                    RemoveLocationButtons();
 
-                this.ImagePath = locationExplorer.GetConfigFile();
-                UpdatePanels(true);
-                LoadPointsData();
+                    ShowMap();
+
+                    this.ImagePath = locationExplorer.GetConfigFile();
+                    UpdatePanels(true);
+                    LoadPointsData();
+                }
+
             }
             else
             {
@@ -95,20 +107,58 @@ namespace Map
 
         }
 
-        private void CreateLocationButtons()
+        private void CreatePngButton()
+        {
+            foreach (string image in locationExplorer.getPngList())
+            {
+                string img = Path.GetFileName(image);
+                Button newButton = new System.Windows.Forms.Button();
+
+                // TODO: Beutify buttons
+                newButton.Margin = new System.Windows.Forms.Padding(5);
+                newButton.Size = new System.Drawing.Size(300, 50);
+                newButton.Cursor = System.Windows.Forms.Cursors.Hand;
+                newButton.Name = image;
+                newButton.Text = img;
+                newButton.Tag = new List<string>();
+                // TODO: Pun them in enums
+                (newButton.Tag as List<string>).Add(image);
+                (newButton.Tag as List<string>).Add("locationButton");
+                newButton.Click += new System.EventHandler(this.imageButton_Click);
+
+                buttons.Add(newButton);
+                this.explorerMenuPanel.Controls.Add(newButton);
+            }
+        }
+
+        private void imageButton_Click(object sender, EventArgs e)
+        {
+            Button senderBtn = (Button)sender;
+            RemoveLocationButtons();
+
+            ShowMap();
+
+            // De modificat rezolutia imaginilor secundare
+            this.ImagePath = senderBtn.Name;
+            UpdatePanels(true);
+            LoadPointsData();
+
+        }
+
+            private void CreateLocationButtons()
         {
             UpdateButtonsFromPath();
 
             foreach (string placeName in locations)
             {
                 Button newButton = new System.Windows.Forms.Button();
-                Console.WriteLine(placeName);
                 // Limit
+                /*
                 if (placeName != "CERVINA" && placeName != "BARCA")
                 {
                     newButton.Enabled = false;
                 }
-
+                */
                 // TODO: Beutify buttons
                 newButton.Margin = new System.Windows.Forms.Padding(5);
                 newButton.Size = new System.Drawing.Size(300, 50);
