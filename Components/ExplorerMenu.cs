@@ -16,13 +16,16 @@ namespace Map
 
         private List<Button> buttons = new List<Button>();
 
-        private FileExplorer locationExplorer = new FileExplorer("D:\\Cerealcom");
+        private FileExplorer locationExplorer;
+        public string initPath;
 
         // TEST ONLY
         private List<string> locations = new List<string>();
 
         private void InitializeExplorerMenu()
         {
+            locationExplorer = new FileExplorer(initPath);
+
             this.explorerMenuPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.explorerMenuPanel.SuspendLayout();
 

@@ -137,7 +137,7 @@ namespace Map
         {
             get
             {
-                 return this.Image.Width;
+                return this.Image.Width;
             }
         }
 
@@ -229,7 +229,7 @@ namespace Map
                             this.multiBmp = null;
                         }
 
-                        
+
                         // Initial rotation adjustments
                         if (rotation != 0)
                         {
@@ -258,7 +258,7 @@ namespace Map
                             this.Image.RotateFlip(RotateFlipType.RotateNoneFlipNone);
                             boundingRect = new Rectangle(0, 0, (int)(this.ImageWidth * zoom), (int)(this.ImageHeight * zoom));
                         }
-                        
+
 
                         zoom = 1.0;
                         bmpPreview = CreatePreviewImage();
@@ -276,6 +276,7 @@ namespace Map
         {
             get { return bmpPreview; }
         }
+
 
         public string ImagePath
         {
@@ -299,7 +300,9 @@ namespace Map
                     try
                     {
                         Bitmap temp2 = (Bitmap)Bitmap.FromFile(value);
-                        temp = new Bitmap(temp2, new Size(4000, 1500));
+                        Size lon = temp2.Size;
+                        float ration = (float)lon.Width / (float)lon.Height;
+                        temp = new Bitmap(temp2, new Size(4000, (int)(4000 / ration)));
                         temp2.Dispose();
                     }
                     catch
@@ -946,8 +949,8 @@ namespace Map
                 {
                     Graphics g = Graphics.FromImage(this.bmp);
                     Pen myPen = new Pen(pointColor);
-                    DrawCircle(g, myPen, (int)x, (int)y, 8);
-                    FillCircle(g, pointColor, (int)x, (int)y, 8);
+                    DrawCircle(g, myPen, (int)x, (int)y, 12);
+                    FillCircle(g, pointColor, (int)x, (int)y, 12);
                     myPen.Dispose();
                     g.Dispose();
                 }
