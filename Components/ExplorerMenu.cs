@@ -224,6 +224,14 @@ namespace Map
 
             this.searchTextBox.Enabled = false;
             this.button2.Enabled = false;
+            this.btnMode.Enabled = false;
+            this.btnZoomIn.Enabled = false;
+            this.btnZoomOut.Enabled = false;
+            this.btnFitToScreen.Enabled = false;
+            this.addDocument.Enabled = false;
+            this.removeDocBtn.Enabled = false;
+            this.saveMetaBtn.Enabled = false;
+            this.button4.Enabled = false;
         }
 
         private void ShowMap()
@@ -233,6 +241,14 @@ namespace Map
 
             this.searchTextBox.Enabled = true;
             this.button2.Enabled = true;
+            this.btnMode.Enabled = true;
+            this.btnZoomIn.Enabled = true;
+            this.btnZoomOut.Enabled = true;
+            this.btnFitToScreen.Enabled = true;
+            this.addDocument.Enabled = true;
+            this.removeDocBtn.Enabled = true;
+            this.saveMetaBtn.Enabled = true;
+            this.button4.Enabled = true;
         }
 
 
