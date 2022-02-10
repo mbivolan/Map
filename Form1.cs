@@ -80,6 +80,7 @@ namespace Map
         }
         
         private bool _deleteDocs = false;
+        private string csvListPath;
 
         private int selectedPointNumber = -1;
         private int lastSelectedPoint = -1;
@@ -94,6 +95,8 @@ namespace Map
 
         public Form1()
         {
+            this.initPath = File.ReadLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.txt")).ElementAt(0);
+            this.csvListPath = File.ReadLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.txt")).ElementAt(1);
             drawEngine = new DrawEngine();
             drawing = new DrawObject(this);
             checkPoints = new List<CheckPoint>();
@@ -380,8 +383,7 @@ namespace Map
             char c = '+';
             int cnt = this.numePropText.Text.Count(f => (f == c));
 
-            var path = @"D:\test.csv";
-            using (TextFieldParser csvReader = new TextFieldParser(path))
+            using (TextFieldParser csvReader = new TextFieldParser(this.csvListPath))
             {
                 csvReader.CommentTokens = new string[] { "#" };
                 csvReader.SetDelimiters(new string[] { "," });
@@ -1027,7 +1029,6 @@ namespace Map
                 double zoom = Math.Round(((double)drawing.CurrentSize.Width / (double)drawing.OriginalSize.Width), 2);
 
                 // Display zoom in percentages
-                cbZoom.Text = (int)(zoom * 100) + "%";
             }
             
         }
@@ -1055,6 +1056,11 @@ namespace Map
 
         private void saveMetaBtn_Click(object sender, EventArgs e)
         {
+            if (selectedPointNumber == -1)
+            {
+                return;
+            }
+
             enableNewPoint = true;
             var ck = checkPoints.ElementAt(selectedPointNumber);
 

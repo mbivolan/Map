@@ -42,7 +42,6 @@ namespace Map
         private void InitializeComponent()
         {
             this.btnOpen = new System.Windows.Forms.Button();
-            this.cbZoom = new System.Windows.Forms.ComboBox();
             this.panelMenu = new System.Windows.Forms.Panel();
             this.btnMode = new System.Windows.Forms.Button();
             this.btnFitToScreen = new System.Windows.Forms.Button();
@@ -53,7 +52,6 @@ namespace Map
             this.lblNavigation = new System.Windows.Forms.Label();
             this.panelNavigation = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panelTarla = new System.Windows.Forms.FlowLayoutPanel();
             this.additionalDocumentText = new System.Windows.Forms.LinkLabel();
             this.linkDocumentText = new System.Windows.Forms.LinkLabel();
             this.statusDosarText = new System.Windows.Forms.ComboBox();
@@ -66,6 +64,7 @@ namespace Map
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.numePropText = new System.Windows.Forms.TextBox();
+            this.panelTarla = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.saveMetaBtn = new System.Windows.Forms.Button();
             this.addDocument = new System.Windows.Forms.Button();
@@ -76,22 +75,21 @@ namespace Map
             this.label3 = new System.Windows.Forms.Label();
             this.searchMenu = new System.Windows.Forms.FlowLayoutPanel();
             this.button4 = new System.Windows.Forms.Button();
+            this.removeDocBtn = new System.Windows.Forms.Button();
             this.pbFull = new Map.PanelDoubleBuffered();
             this.sbVert = new System.Windows.Forms.VScrollBar();
             this.sbHoriz = new System.Windows.Forms.HScrollBar();
             this.sbPanel = new System.Windows.Forms.Panel();
-            this.removeDocBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbPanel)).BeginInit();
             this.panel1.SuspendLayout();
-            this.panelTarla.SuspendLayout();
             this.addDocumentMenu.SuspendLayout();
             this.pbFull.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOpen
             // 
-            this.btnOpen.Image = global::Map.Properties.Resources.btnOpen;
             this.btnOpen.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnOpen.Image = global::Map.Properties.Resources.btnOpen;
             this.btnOpen.Location = new System.Drawing.Point(4, 6);
             this.btnOpen.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnOpen.Name = "btnOpen";
@@ -99,15 +97,6 @@ namespace Map
             this.btnOpen.TabIndex = 0;
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
-            // 
-            // cbZoom
-            // 
-            this.cbZoom.FormattingEnabled = true;
-            this.cbZoom.Location = new System.Drawing.Point(1046, 9);
-            this.cbZoom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.cbZoom.Name = "cbZoom";
-            this.cbZoom.Size = new System.Drawing.Size(72, 24);
-            this.cbZoom.TabIndex = 14;
             // 
             // panelMenu
             // 
@@ -118,9 +107,9 @@ namespace Map
             // 
             // btnMode
             // 
-            this.btnMode.Image = global::Map.Properties.Resources.btnSelect;
             this.btnMode.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnMode.Location = new System.Drawing.Point(868, 4);
+            this.btnMode.Image = global::Map.Properties.Resources.btnSelect;
+            this.btnMode.Location = new System.Drawing.Point(1019, 5);
             this.btnMode.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnMode.Name = "btnMode";
             this.btnMode.Size = new System.Drawing.Size(41, 30);
@@ -130,9 +119,9 @@ namespace Map
             // 
             // btnFitToScreen
             // 
-            this.btnFitToScreen.Image = global::Map.Properties.Resources.btnFitToScreen;
             this.btnFitToScreen.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnFitToScreen.Location = new System.Drawing.Point(1003, 6);
+            this.btnFitToScreen.Image = global::Map.Properties.Resources.btnFitToScreen;
+            this.btnFitToScreen.Location = new System.Drawing.Point(1154, 5);
             this.btnFitToScreen.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnFitToScreen.Name = "btnFitToScreen";
             this.btnFitToScreen.Size = new System.Drawing.Size(37, 30);
@@ -142,9 +131,9 @@ namespace Map
             // 
             // btnZoomIn
             // 
-            this.btnZoomIn.Image = global::Map.Properties.Resources.btnZoomIn;
             this.btnZoomIn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnZoomIn.Location = new System.Drawing.Point(915, 4);
+            this.btnZoomIn.Image = global::Map.Properties.Resources.btnZoomIn;
+            this.btnZoomIn.Location = new System.Drawing.Point(1066, 5);
             this.btnZoomIn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnZoomIn.Name = "btnZoomIn";
             this.btnZoomIn.Size = new System.Drawing.Size(37, 30);
@@ -154,9 +143,9 @@ namespace Map
             // 
             // btnZoomOut
             // 
-            this.btnZoomOut.Image = global::Map.Properties.Resources.btnZoomOut;
             this.btnZoomOut.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnZoomOut.Location = new System.Drawing.Point(958, 6);
+            this.btnZoomOut.Image = global::Map.Properties.Resources.btnZoomOut;
+            this.btnZoomOut.Location = new System.Drawing.Point(1109, 5);
             this.btnZoomOut.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnZoomOut.Name = "btnZoomOut";
             this.btnZoomOut.Size = new System.Drawing.Size(39, 30);
@@ -223,17 +212,6 @@ namespace Map
             this.panel1.Size = new System.Drawing.Size(297, 132);
             this.panel1.TabIndex = 17;
             // 
-            // panelTarla
-            // 
-            this.panelTarla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelTarla.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panelTarla.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelTarla.Location = new System.Drawing.Point(1198, 41);
-            this.panelTarla.Margin = new System.Windows.Forms.Padding(4);
-            this.panelTarla.Name = "panelTarla";
-            this.panelTarla.Size = new System.Drawing.Size(297, 132);
-            this.panelTarla.TabIndex = 17;
-            // 
             // additionalDocumentText
             // 
             this.additionalDocumentText.AutoSize = true;
@@ -263,7 +241,7 @@ namespace Map
             this.statusDosarText.Location = new System.Drawing.Point(112, 105);
             this.statusDosarText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.statusDosarText.Name = "statusDosarText";
-            this.statusDosarText.Size = new System.Drawing.Size(180, 22);
+            this.statusDosarText.Size = new System.Drawing.Size(180, 24);
             this.statusDosarText.TabIndex = 11;
             this.statusDosarText.TextChanged += new System.EventHandler(this.statusDosarText_TextChanged);
             // 
@@ -349,12 +327,23 @@ namespace Map
             this.numePropText.TabIndex = 0;
             this.numePropText.TextChanged += new System.EventHandler(this.numePropText_TextChanged);
             // 
+            // panelTarla
+            // 
+            this.panelTarla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelTarla.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panelTarla.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelTarla.Location = new System.Drawing.Point(1198, 41);
+            this.panelTarla.Margin = new System.Windows.Forms.Padding(4);
+            this.panelTarla.Name = "panelTarla";
+            this.panelTarla.Size = new System.Drawing.Size(297, 132);
+            this.panelTarla.TabIndex = 17;
+            // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1140, 18);
+            this.label1.Location = new System.Drawing.Point(1199, 20);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 17);
@@ -386,8 +375,6 @@ namespace Map
             this.addDocument.Text = "Incarca document";
             this.addDocument.UseVisualStyleBackColor = true;
             this.addDocument.Click += new System.EventHandler(this.btnAddDocument_Click);
-            
-
             // 
             // searchTextBox
             // 
@@ -415,8 +402,8 @@ namespace Map
             // 
             // showMenuBtn
             // 
-            this.showMenuBtn.Location = new System.Drawing.Point(45, 6);
             this.showMenuBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.showMenuBtn.Location = new System.Drawing.Point(45, 6);
             this.showMenuBtn.Name = "showMenuBtn";
             this.showMenuBtn.Size = new System.Drawing.Size(75, 29);
             this.showMenuBtn.TabIndex = 0;
@@ -430,11 +417,11 @@ namespace Map
             this.addDocumentMenu.BackColor = System.Drawing.SystemColors.ControlLight;
             this.addDocumentMenu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.addDocumentMenu.Controls.Add(this.label3);
+            this.addDocumentMenu.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.addDocumentMenu.Location = new System.Drawing.Point(1198, 180);
             this.addDocumentMenu.Name = "addDocumentMenu";
             this.addDocumentMenu.Size = new System.Drawing.Size(297, 201);
             this.addDocumentMenu.TabIndex = 24;
-            this.addDocumentMenu.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.addDocumentMenu.WrapContents = false;
             // 
             // label3
@@ -470,6 +457,18 @@ namespace Map
             this.button4.Text = "Sterge";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // removeDocBtn
+            // 
+            this.removeDocBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.removeDocBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.removeDocBtn.Location = new System.Drawing.Point(1348, 678);
+            this.removeDocBtn.Name = "removeDocBtn";
+            this.removeDocBtn.Size = new System.Drawing.Size(147, 27);
+            this.removeDocBtn.TabIndex = 28;
+            this.removeDocBtn.Text = "Sterge Document";
+            this.removeDocBtn.UseVisualStyleBackColor = true;
+            this.removeDocBtn.Click += new System.EventHandler(this.removeDocBtn_Click);
             // 
             // pbFull
             // 
@@ -526,18 +525,6 @@ namespace Map
             this.sbPanel.Size = new System.Drawing.Size(841, 608);
             this.sbPanel.TabIndex = 13;
             // 
-            // removeDocBtn
-            // 
-            this.removeDocBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.removeDocBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.removeDocBtn.Location = new System.Drawing.Point(1348, 678);
-            this.removeDocBtn.Name = "removeDocBtn";
-            this.removeDocBtn.Size = new System.Drawing.Size(147, 27);
-            this.removeDocBtn.TabIndex = 28;
-            this.removeDocBtn.Text = "Sterge Document";
-            this.removeDocBtn.UseVisualStyleBackColor = true;
-            this.removeDocBtn.Click += new System.EventHandler(this.removeDocBtn_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -558,7 +545,6 @@ namespace Map
             this.Controls.Add(this.btnZoomOut);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.pbFull);
-            this.Controls.Add(this.cbZoom);
             this.Controls.Add(this.btnMode);
             this.Controls.Add(this.btnFitToScreen);
             this.Controls.Add(this.btnZoomIn);
@@ -571,10 +557,6 @@ namespace Map
             ((System.ComponentModel.ISupportInitialize)(this.pbPanel)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            //this.panel1.Hide();
-            this.panelTarla.Hide();
-            this.panelTarla.ResumeLayout(false);
-            this.panelTarla.PerformLayout();
             this.addDocumentMenu.ResumeLayout(false);
             this.addDocumentMenu.PerformLayout();
             this.pbFull.ResumeLayout(false);
@@ -587,7 +569,6 @@ namespace Map
 
         private System.Windows.Forms.Button btnOpen;
         private PanelDoubleBuffered pbFull;
-        private System.Windows.Forms.ComboBox cbZoom;
         private System.Windows.Forms.Panel panelMenu;
         private System.Windows.Forms.PictureBox pbPanel;
         private System.Windows.Forms.Button btnZoomIn;
