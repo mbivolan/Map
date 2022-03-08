@@ -10,6 +10,8 @@ namespace MapSearch
 {
     class DataEntry
     {
+        public string NrCrt;
+        public string NumarParcela;
         public string Judet;
         public string Oras;
         public string Firma;
@@ -33,12 +35,15 @@ namespace MapSearch
         public List<String> toList()
         {
             return new List<string> {
+                this.NrCrt,
+                this.NumarParcela,
                 this.Judet,
-                this.Oras,
                 this.Firma,
-                this.Tarla,
-                this.StatusDosar,
+                this.Oras,
                 this.NumeProprietar,
+                this.Tarla,
+                this.Parcela,
+                this.StatusDosar,
                 this.DataContract,
                 this.Suprafata
             };
@@ -55,13 +60,15 @@ namespace MapSearch
         public DataSource(List<String> paths)
         {
             this.data = new List<List<String>>();
+            this.rawData = new List<DataEntry>();
 
-            List<string> files = findAllJson(new List<string> { @"C:\Users\bivolan\source\repos\Test\DOLJ", @"C:\Users\bivolan\source\repos\Test\OLT" });
+            List<string> files = findAllJson(new List<string> { @"C:\Users\HP\Desktop\Test\DOLJ", @"C:\Users\HP\Desktop\Test\OLT" });
 
             foreach (string file in files)
             {
                 convertJson(file);
             }
+            AddNumber();
         }
 
         private List<String> findAllJson(List<String> paths)
@@ -85,16 +92,30 @@ namespace MapSearch
             string inputJson = File.ReadAllText(jsonPath);
             List<DataEntry> newData = JsonConvert.DeserializeObject<List<DataEntry>>(inputJson);
 
+            //int index = 1;
             foreach(DataEntry entry in rawData)
             {
+                //entry.NrCrt = index.ToString();
                 entry.Oras = oras;
                 entry.Judet = judet;
                 entry.Firma = firma;
 
                 this.data.Add(entry.toList());
+                //index++;
             }
 
             this.rawData.AddRange(newData);
+        }
+        public void AddNumber()
+        {
+            int index = 1;
+            foreach(DataEntry item in rawData)
+            {
+                item.NrCrt = index.ToString();
+                this.data.Add(item.toList());
+                index++;
+            }
+
         }
     }
 }
