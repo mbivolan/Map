@@ -7,11 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RenderedDataList = System.Collections.Generic.List<System.Collections.Generic.List<System.String>>;
 
 namespace MapSearch
 {
     public partial class Form1 : Form
     {
+        DataSource newDataSource;
+        List<DataEntry> currentData;
+        Dictionary<String, String> searchQuery;
         public Form1()
         {
             InitializeComponent();
@@ -30,93 +34,103 @@ namespace MapSearch
             dataGridView1.Columns[9].Name = "Data";
             dataGridView1.Columns[10].Name = "Suprafata";
 
-            addToCombo();
-            List<String> test = new List<string>();
-            test.Add("lol1");
+            searchQuery = new Dictionary<string, string>();
 
-            DataSource newDataSource = new DataSource(new List<String>());
+            newDataSource = new DataSource(new List<String>());
+            currentData = newDataSource.rawData;
 
-            foreach (List<String> entry in newDataSource.data)
+
+            /*
+            { "NumarParcela", this.NumarParcela} ,
+                { "Judet", this.Judet },
+                { "Firma", this.Firma },
+                { "Oras", this.Oras },
+                { "Nume", this.NumeProprietar },
+                { "Tarla", this.Tarla },
+                { "Parcela", this.Parcela },
+                { "Status", this.StatusDosar },
+                { "Data", this.DataContract },
+                { "Suprafata", this.Suprafata }
+            */
+            // private System.Windows.Forms.ComboBox filterFirma;
+            //private System.Windows.Forms.ComboBox filterLocalitate;
+            //private System.Windows.Forms.ComboBox filterTarla;
+            //private System.Windows.Forms.ComboBox filterStatus;
+            //private System.Windows.Forms.ComboBox filterData;
+
+            // Baga si pe restu :D
+
+            filterJudet.Items.AddRange(
+    newDataSource.getUniqueValues(currentData, "Judet").ToArray()
+);
+
+            resetTable("");
+        }
+
+        private void resetTable(string resetField)
+        {
+            filterLocalitate.Items.Clear();
+            //filterJudet.Items.Clear();
+            
+            filterLocalitate.Items.AddRange(
+                newDataSource.getUniqueValues(currentData, "Oras").ToArray()
+            );
+
+
+
+            if (resetField != "Firma")
+            {
+                filterFirma.Items.Clear();
+
+                filterFirma.Items.AddRange(
+                    newDataSource.getUniqueValues(currentData, "Firma").ToArray()
+                );
+            }
+
+            dataGridView1.Rows.Clear();
+            foreach (List<String> entry in newDataSource.renderData(currentData))
             {
                 dataGridView1.Rows.Add(entry.ToArray());
             }
-
-            foreach (List<String> entry in newDataSource.data)
-            {
-                // Faci o lista pentru oras 
-                // daca newDataSource.data[1] nu exista in lista, il bagi
-
-            }
         }
-        private void addToCombo()
-        {
-            {
-                var listaJudet = new List<string> {
-                    ("DOLJ"),
-                    ("OLT"),
-                };
-                var listaFirma = new List<string> {
-                    ("ANM"),
-                    ("CEREALCOM"),
-                    ("CERVINA"),
-                    ("OLTYRE"),
-                    ("REDIAS"),
-                };
-                var listaLocalitate = new List<string> {
-                    ("AMARASTII DE SUS"),
-                    ("BIRCA"),
-                    ("CALOPAR"),
-                    ("CARACAL"),
-                    ("CERAT"),
-                    ("DRANIC"),
-                    ("GINGIOVA"),
-                    ("GIURGITA"),
-                    ("GOICEA"),
-                    ("LIVPOVU"),
-                    ("MACESU DE JOS"),
-                    ("MACESU DE SUS"),
-                    ("REDEA"),
-                    ("SEGARCEA"),
-                    ("VALEA STANCIULUI"),
-                };
-                var listaTarla = new List<string> {
-                    ("1"),
-                    ("2"),
-                };
-                var listaStatus = new List<string> {
-                    ("ANTECONTRACT"),
-                    ("CESIUNE"),
-                    ("CVC"),
-                    ("SENTINTA"),
 
-                };
-                var listaData = new List<string> {
-                    ("PENDING"),
-                    ("PENDING"),
-                };
-                foreach (string entry in listaJudet)
+        private void filterJudet_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //currentData = newDataSource.filterData(currentData, "Judet", filterJudet.Text);
+            searchQuery["Judet"] = filterJudet.Text;
+            search();
+            resetTable("");
+        }
+
+        private void filterLocalitate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //currentData = newDataSource.filterData(currentData, "Oras", filterLocalitate.Text);
+            searchQuery["Oras"] = filterLocalitate.Text;
+            search();
+
+
+
+            resetTable("");
+        }
+
+        private void filterFirma_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //currentData = newDataSource.filterData(currentData, "Firma", filterFirma.Text);
+            searchQuery["Firma"] = filterFirma.Text;
+            search();
+            resetTable("Firma");
+        }
+
+        private void search()
+        {
+            currentData = newDataSource.rawData;
+
+            foreach (string key in searchQuery.Keys)
+            {
+                if (searchQuery[key] != null)
                 {
-                    this.filterJudet.Items.Add(entry);
-                }
-                foreach (string entry in listaFirma)
-                {
-                    this.filterFirma.Items.Add(entry);
-                }
-                foreach (string entry in listaLocalitate)
-                {
-                    this.filterLocalitate.Items.Add(entry);
-                }
-                foreach (string entry in listaTarla)
-                {
-                    this.filterTarla.Items.Add(entry);
-                }
-                foreach (string entry in listaStatus)
-                {
-                    this.filterStatus.Items.Add(entry);
-                }
-                foreach (string entry in listaData)
-                {
-                    this.filterData.Items.Add(entry);
+                    currentData = newDataSource.filterData(currentData, key, searchQuery[key]);
+                    
                 }
             }
         }

@@ -5,12 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
+using System.Collections;
+
+
 
 namespace MapSearch
 {
+    using RenderedDataList = System.Collections.Generic.List<System.Collections.Generic.List<System.String>>;
     class DataEntry
     {
-        public string NrCrt;
         public string NumarParcela;
         public string Judet;
         public string Oras;
@@ -35,7 +38,6 @@ namespace MapSearch
         public List<String> toList()
         {
             return new List<string> {
-                this.NrCrt,
                 this.NumarParcela,
                 this.Judet,
                 this.Firma,
@@ -48,12 +50,27 @@ namespace MapSearch
                 this.Suprafata
             };
         }
+
+        public Dictionary<String, String> toHash()
+        {
+            return new Dictionary<String, String>() {
+                { "NumarParcela", this.NumarParcela} ,
+                { "Judet", this.Judet },
+                { "Firma", this.Firma },
+                { "Oras", this.Oras },
+                { "Nume", this.NumeProprietar },
+                { "Tarla", this.Tarla },
+                { "Parcela", this.Parcela },
+                { "Status", this.StatusDosar },
+                { "Data", this.DataContract },
+                { "Suprafata", this.Suprafata }
+            };
+        }
+
     }
 
     class DataSource
     {
-        //private string testPath = @"C:\Users\bivolan\source\repos\Test\DOLJ\ANM\BIRCA\config.json";
-
         public List<List<String>> data;
         public List<DataEntry> rawData;
 
@@ -62,13 +79,16 @@ namespace MapSearch
             this.data = new List<List<String>>();
             this.rawData = new List<DataEntry>();
 
-            List<string> files = findAllJson(new List<string> { @"C:\Users\HP\Desktop\Test\DOLJ", @"C:\Users\HP\Desktop\Test\OLT" });
+            List<string> files = findAllJson(new List<string> { 
+                @"C:\Users\bivolan\Documents\Projects\Test\DOLJ", @"C:\Users\bivolan\Documents\Projects\Test\OLT"
+                // @"C:\Users\bivolan\Documents\Projects\Test\DOLJ", @"C:\Users\bivolan\Documents\Projects\Test\OLT"
+            });
 
             foreach (string file in files)
             {
                 convertJson(file);
             }
-            AddNumber();
+            // AddNumber();
         }
 
         private List<String> findAllJson(List<String> paths)
@@ -92,30 +112,66 @@ namespace MapSearch
             string inputJson = File.ReadAllText(jsonPath);
             List<DataEntry> newData = JsonConvert.DeserializeObject<List<DataEntry>>(inputJson);
 
-            //int index = 1;
-            foreach(DataEntry entry in rawData)
+            //
+            foreach(DataEntry entry in newData)
             {
                 //entry.NrCrt = index.ToString();
                 entry.Oras = oras;
                 entry.Judet = judet;
                 entry.Firma = firma;
-
-                this.data.Add(entry.toList());
+                //this.data.Add(entry.toList());
                 //index++;
             }
 
             this.rawData.AddRange(newData);
         }
-        public void AddNumber()
+
+        public RenderedDataList renderData(List<DataEntry> data)
         {
+            RenderedDataList renderedData = new RenderedDataList();
+
             int index = 1;
-            foreach(DataEntry item in rawData)
+            foreach (DataEntry entry in data)
             {
-                item.NrCrt = index.ToString();
-                this.data.Add(item.toList());
+                List<String> finalList = entry.toList();
+                finalList.Insert(0, index.ToString());
+                renderedData.Add(finalList);
                 index++;
             }
 
+            return renderedData;
         }
+
+        public List<String> getUniqueValues(List<DataEntry> data, string key)
+        {
+            List<string> values = new List<string>();
+
+            foreach (DataEntry entry in data)
+            {
+                Dictionary<String, String> entryDict = entry.toHash();
+                if (!values.Contains(entryDict[key]))
+                {
+                    values.Add(entryDict[key]);
+                }
+            }
+
+            return values;
+        }
+
+        public List<DataEntry> filterData(List<DataEntry> data, string key, string value)
+        {
+            List<DataEntry> filteredData = new List<DataEntry>();
+
+            foreach (DataEntry entry in data)
+            {
+                if (entry.toHash()[key] == value)
+                {
+                    filteredData.Add(entry);
+                }
+            }
+
+            return filteredData;
+        }
+
     }
 }
