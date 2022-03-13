@@ -61,32 +61,64 @@ namespace MapSearch
             // Baga si pe restu :D
 
             filterJudet.Items.AddRange(
-    newDataSource.getUniqueValues(currentData, "Judet").ToArray()
-);
+                newDataSource.getUniqueValues(currentData, "Judet").ToArray()
+            );
 
+            filterFirma.Items.Clear();
+            filterFirma.Items.AddRange(
+                newDataSource.getUniqueValues(currentData, "Firma").ToArray()
+            );
+
+            filterStatus.Items.Clear();
+            filterStatus.Items.AddRange(
+                newDataSource.getUniqueValues(currentData, "Status").ToArray()
+            );
             resetTable("");
+        }
+
+        private void filterList(List<string> list, List<string> filter)
+        {
+            foreach (string s in list)
+            {
+                filter.Add(s);
+            }
+        }
+
+        private void ResetFilters(List<string> filter)
+        {
+            List<String> firma = new List<String>();
+            List<String> localitate = new List<String>();
+            List<String> tarla = new List<String>();
+            List<String> status = new List<String>();
+            List<String> data = new List<String>();
+            
+            filterList(filter, firma);
+            filterList(filter, localitate);
+            filterList(filter, tarla);
+            filterList(filter, status);
+            filterList(filter, data);
         }
 
         private void resetTable(string resetField)
         {
             filterLocalitate.Items.Clear();
-            //filterJudet.Items.Clear();
-            
             filterLocalitate.Items.AddRange(
                 newDataSource.getUniqueValues(currentData, "Oras").ToArray()
             );
 
+            filterTarla.Items.Clear();
+            filterTarla.Items.AddRange(
+                newDataSource.getUniqueValues(currentData, "Tarla").ToArray()
+            );
 
+            
 
-            if (resetField != "Firma")
-            {
-                filterFirma.Items.Clear();
-
-                filterFirma.Items.AddRange(
-                    newDataSource.getUniqueValues(currentData, "Firma").ToArray()
-                );
-            }
-
+            /*
+            filterData.Items.Clear();
+            filterData.Items.AddRange(
+                newDataSource.getUniqueValues(currentData, "Data").ToArray()
+            );
+            */
             dataGridView1.Rows.Clear();
             foreach (List<String> entry in newDataSource.renderData(currentData))
             {
@@ -107,9 +139,6 @@ namespace MapSearch
             //currentData = newDataSource.filterData(currentData, "Oras", filterLocalitate.Text);
             searchQuery["Oras"] = filterLocalitate.Text;
             search();
-
-
-
             resetTable("");
         }
 
@@ -133,6 +162,27 @@ namespace MapSearch
                     
                 }
             }
+        }
+
+        private void filterTarla_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            searchQuery["Tarla"] = filterTarla.Text;
+            search();
+            resetTable("Tarla");
+        }
+
+        private void filterStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            searchQuery["Status"] = filterStatus.Text;
+            search();
+            resetTable("Status");
+        }
+
+        private void filterData_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            searchQuery["Data"] = filterData.Text;
+            search();
+            resetTable("Data");
         }
     }
 }

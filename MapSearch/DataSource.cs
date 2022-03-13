@@ -79,8 +79,8 @@ namespace MapSearch
             this.data = new List<List<String>>();
             this.rawData = new List<DataEntry>();
 
-            List<string> files = findAllJson(new List<string> { 
-                @"C:\Users\bivolan\Documents\Projects\Test\DOLJ", @"C:\Users\bivolan\Documents\Projects\Test\OLT"
+            List<string> files = findAllJson(new List<string> {
+                @"C:\Users\HP\Desktop\Test\DOLJ", @"C:\Users\HP\Desktop\Test\OLT" 
                 // @"C:\Users\bivolan\Documents\Projects\Test\DOLJ", @"C:\Users\bivolan\Documents\Projects\Test\OLT"
             });
 
@@ -112,15 +112,12 @@ namespace MapSearch
             string inputJson = File.ReadAllText(jsonPath);
             List<DataEntry> newData = JsonConvert.DeserializeObject<List<DataEntry>>(inputJson);
 
-            //
             foreach(DataEntry entry in newData)
             {
-                //entry.NrCrt = index.ToString();
                 entry.Oras = oras;
                 entry.Judet = judet;
                 entry.Firma = firma;
                 //this.data.Add(entry.toList());
-                //index++;
             }
 
             this.rawData.AddRange(newData);
