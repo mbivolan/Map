@@ -80,8 +80,8 @@ namespace MapSearch
             this.rawData = new List<DataEntry>();
 
             List<string> files = findAllJson(new List<string> {
-                @"C:\Users\HP\Desktop\Test\DOLJ", @"C:\Users\HP\Desktop\Test\OLT" 
-                // @"C:\Users\bivolan\Documents\Projects\Test\DOLJ", @"C:\Users\bivolan\Documents\Projects\Test\OLT"
+                //@"C:\Users\HP\Desktop\Test\DOLJ", @"C:\Users\HP\Desktop\Test\OLT" 
+                @"C:\Users\mabiv\Workspace\MapProject\test\Test\DOLJ", @"C:\Users\mabiv\Workspace\MapProject\test\Test\OLT"
             });
 
             foreach (string file in files)

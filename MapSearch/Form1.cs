@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +17,21 @@ namespace MapSearch
         DataSource newDataSource;
         List<DataEntry> currentData;
         Dictionary<String, String> searchQuery;
+
+        Dictionary<String, ComboBox> filterBoxes;  
+
         public Form1()
         {
             InitializeComponent();
+            filterBoxes = new Dictionary<String, ComboBox>() {
+                { "Judet", this.filterJudet},
+                { "Firma", this.filterFirma},
+                { "Oras", this.filterLocalitate},
+                { "Tarla", this.filterTarla},
+                { "Status", this.filterStatus},
+                { "Data", this.filterData},
+
+            };
 
             dataGridView1.ColumnCount = 11;
 
@@ -99,30 +112,69 @@ namespace MapSearch
             filterList(filter, data);
         }
 
+        /*
+                private void resetTable(string resetField)
+                {
+                    filterLocalitate.Items.Clear();
+                    filterLocalitate.Items.AddRange(
+                        newDataSource.getUniqueValues(currentData, "Oras").ToArray()
+                    );
+
+                    filterTarla.Items.Clear();
+                    filterTarla.Items.AddRange(
+                        newDataSource.getUniqueValues(currentData, "Tarla").ToArray()
+                    );
+
+
+                    filterData.Items.Clear();
+                    filterData.Items.AddRange(
+                        newDataSource.getUniqueValues(currentData, "Data").ToArray()
+                    );
+
+
+
+                }
+        */
+
         private void resetTable(string resetField)
         {
-            filterLocalitate.Items.Clear();
-            filterLocalitate.Items.AddRange(
-                newDataSource.getUniqueValues(currentData, "Oras").ToArray()
-            );
+            List<String> keys = this.filterBoxes.Keys.ToList();
 
-            filterTarla.Items.Clear();
-            filterTarla.Items.AddRange(
-                newDataSource.getUniqueValues(currentData, "Tarla").ToArray()
-            );
+            int index = keys.IndexOf(resetField);
 
-            
 
-            /*
-            filterData.Items.Clear();
-            filterData.Items.AddRange(
-                newDataSource.getUniqueValues(currentData, "Data").ToArray()
-            );
-            */
+
+            for (int i = index + 1; i < this.filterBoxes.Count; i++)
+            {
+                this.filterBoxes[keys[i]].Items.Clear();
+
+                if (keys[i] != "Data")
+                {
+                    this.filterBoxes[keys[i]].Items.AddRange(
+                        newDataSource.getUniqueValues(currentData, keys[i]).ToArray()
+                    );
+                }
+                searchQuery[keys[i]] = null;
+            }
+
+
             dataGridView1.Rows.Clear();
             foreach (List<String> entry in newDataSource.renderData(currentData))
             {
                 dataGridView1.Rows.Add(entry.ToArray());
+            }
+
+        }
+
+        private void resetQuery(string resetField)
+        {
+            List<String> keys = this.filterBoxes.Keys.ToList();
+
+            int index = keys.IndexOf(resetField);
+
+            for (int i = index + 1; i < this.filterBoxes.Count; i++)
+            {
+                searchQuery[keys[i]] = null;
             }
         }
 
@@ -130,8 +182,9 @@ namespace MapSearch
         {
             //currentData = newDataSource.filterData(currentData, "Judet", filterJudet.Text);
             searchQuery["Judet"] = filterJudet.Text;
+            resetQuery("Judet");
             search();
-            resetTable("");
+            resetTable("Judet");
         }
 
         private void filterLocalitate_SelectedIndexChanged(object sender, EventArgs e)
@@ -139,7 +192,7 @@ namespace MapSearch
             //currentData = newDataSource.filterData(currentData, "Oras", filterLocalitate.Text);
             searchQuery["Oras"] = filterLocalitate.Text;
             search();
-            resetTable("");
+            resetTable("Oras");
         }
 
         private void filterFirma_SelectedIndexChanged(object sender, EventArgs e)
@@ -183,6 +236,59 @@ namespace MapSearch
             searchQuery["Data"] = filterData.Text;
             search();
             resetTable("Data");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            StreamWriter sw = new StreamWriter(@"C:\Users\mabiv\Workspace\MapProject\test.csv", false);
+
+            foreach (String key in currentData[0].toHash().Keys)
+            {
+                sw.Write(key);
+                if (currentData[0].toHash().Keys.ToList().IndexOf(key) < currentData[0].toHash().Keys.Count - 1)
+                {
+                    sw.Write(",");
+                }
+            }
+
+            sw.Write(sw.NewLine);
+            int index = 0;
+            foreach (DataEntry dr in currentData)
+            {
+
+                index++;
+                List<String> newList = dr.toList();
+
+                for (int i = 0; i < newList.Count; i++)
+                {
+                    String value = newList[i];
+                    if (i == 0)
+                    {
+                        sw.Write(index.ToString() + ',');
+                        continue;
+                    }
+
+                    if (value != null)
+                    {
+                        if (value.Contains(','))
+                        {
+                            String newValue = String.Format("\"{0}\"", value);
+                            sw.Write(newValue);
+                        }
+                        else
+                        {
+                            sw.Write(value.ToString());
+                        }
+                    }
+                    if (i < newList.Count - 1)
+                    {
+                        sw.Write(",");
+                    }
+                }
+
+                sw.Write(sw.NewLine);
+            }
+            sw.Close();
         }
     }
 }
