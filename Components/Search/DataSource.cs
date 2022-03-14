@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using System.IO;
-using System.Collections;
 
-
-
-namespace MapSearch
+namespace Map.Components.Search
 {
     using RenderedDataList = System.Collections.Generic.List<System.Collections.Generic.List<System.String>>;
     class DataEntry
@@ -78,11 +75,13 @@ namespace MapSearch
         {
             this.data = new List<List<String>>();
             this.rawData = new List<DataEntry>();
-
+            List<string> files = findAllJson(paths);
+            /*
             List<string> files = findAllJson(new List<string> {
                 //@"C:\Users\HP\Desktop\Test\DOLJ", @"C:\Users\HP\Desktop\Test\OLT" 
                 @"C:\Users\mabiv\Workspace\MapProject\test\Test\DOLJ", @"C:\Users\mabiv\Workspace\MapProject\test\Test\OLT"
             });
+            */
 
             foreach (string file in files)
             {
@@ -112,7 +111,7 @@ namespace MapSearch
             string inputJson = File.ReadAllText(jsonPath);
             List<DataEntry> newData = JsonConvert.DeserializeObject<List<DataEntry>>(inputJson);
 
-            foreach(DataEntry entry in newData)
+            foreach (DataEntry entry in newData)
             {
                 entry.Oras = oras;
                 entry.Judet = judet;

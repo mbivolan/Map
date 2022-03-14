@@ -8,19 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using RenderedDataList = System.Collections.Generic.List<System.Collections.Generic.List<System.String>>;
 
-namespace MapSearch
+namespace Map.Components.Search
 {
-    public partial class Form1 : Form
+    public partial class Search : Form
     {
         DataSource newDataSource;
         List<DataEntry> currentData;
-        Dictionary<String, String> searchQuery;
+        Dictionary<string, string> searchQuery;
 
-        Dictionary<String, ComboBox> filterBoxes;  
-
-        public Form1()
+        Dictionary<String, ComboBox> filterBoxes;
+        public Search(List<String> initPath)
         {
             InitializeComponent();
             filterBoxes = new Dictionary<String, ComboBox>() {
@@ -49,29 +49,8 @@ namespace MapSearch
 
             searchQuery = new Dictionary<string, string>();
 
-            newDataSource = new DataSource(new List<String>());
+            newDataSource = new DataSource(initPath);
             currentData = newDataSource.rawData;
-
-
-            /*
-            { "NumarParcela", this.NumarParcela} ,
-                { "Judet", this.Judet },
-                { "Firma", this.Firma },
-                { "Oras", this.Oras },
-                { "Nume", this.NumeProprietar },
-                { "Tarla", this.Tarla },
-                { "Parcela", this.Parcela },
-                { "Status", this.StatusDosar },
-                { "Data", this.DataContract },
-                { "Suprafata", this.Suprafata }
-            */
-            // private System.Windows.Forms.ComboBox filterFirma;
-            //private System.Windows.Forms.ComboBox filterLocalitate;
-            //private System.Windows.Forms.ComboBox filterTarla;
-            //private System.Windows.Forms.ComboBox filterStatus;
-            //private System.Windows.Forms.ComboBox filterData;
-
-            // Baga si pe restu :D
 
             filterJudet.Items.AddRange(
                 newDataSource.getUniqueValues(currentData, "Judet").ToArray()
@@ -104,7 +83,7 @@ namespace MapSearch
             List<String> tarla = new List<String>();
             List<String> status = new List<String>();
             List<String> data = new List<String>();
-            
+
             filterList(filter, firma);
             filterList(filter, localitate);
             filterList(filter, tarla);
@@ -212,7 +191,7 @@ namespace MapSearch
                 if (searchQuery[key] != null)
                 {
                     currentData = newDataSource.filterData(currentData, key, searchQuery[key]);
-                    
+
                 }
             }
         }
@@ -255,7 +234,6 @@ namespace MapSearch
             int index = 0;
             foreach (DataEntry dr in currentData)
             {
-
                 index++;
                 List<String> newList = dr.toList();
 

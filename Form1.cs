@@ -11,6 +11,7 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 using Microsoft.VisualBasic.FileIO;
+using Map.Components.Search;
 
 namespace Map
 {
@@ -30,6 +31,7 @@ namespace Map
 
     public partial class Form1 : Form
     {
+        private char[] V = new char[] { ';' };
         private DrawObject drawing;
         private DrawEngine drawEngine;
         private List<Map.CheckPoint> checkPoints;
@@ -42,6 +44,7 @@ namespace Map
         private string imagePath;
         private string configPath;
         private List<ColumnData> DataItems;
+        Search seachForm;
 
         private bool deleteDocs
         {
@@ -95,13 +98,15 @@ namespace Map
 
         public Form1()
         {
-            this.initPath = File.ReadLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.txt")).ElementAt(0);
+            string newPath = File.ReadLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.txt")).ElementAt(0);
+            this.locations = newPath.Split(V).ToList();
             this.csvListPath = File.ReadLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.txt")).ElementAt(1);
             drawEngine = new DrawEngine();
             drawing = new DrawObject(this);
             checkPoints = new List<CheckPoint>();
             foundPoints = new List<CheckPoint>();
             DataItems = new List<ColumnData>();
+            seachForm = new Search(new List<String>(locations));
             InitializeWindow();
             InitControl();
             addStatus();
@@ -1410,6 +1415,11 @@ namespace Map
             {
                 this.statusDosarText.Items.Add(entry);
             }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            seachForm.ShowDialog();
         }
     }
 }
