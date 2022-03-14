@@ -11,12 +11,15 @@ namespace Map.Components.Tools
     {
         private string explorerPath;
         private string basePath;
-        
 
         public FileExplorer(string path)
         {
             this.explorerPath = path;
             this.basePath = path;
+        }
+
+        public FileExplorer()
+        {
         }
 
         public void goToBase()
@@ -31,6 +34,11 @@ namespace Map.Components.Tools
         
         public void UpdatePath(string path)
         {
+            if (this.explorerPath == null)
+            {
+                this.explorerPath = path;
+                return;
+            }
             this.explorerPath = Path.Combine(this.explorerPath, path);
         }
 
