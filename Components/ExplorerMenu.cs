@@ -21,10 +21,12 @@ namespace Map
 
         // TEST ONLY
         private List<string> locations = new List<string>();
+        private List<string> initLocations = new List<string>();
 
         private void InitializeExplorerMenu()
         {
-            locationExplorer = new FileExplorer(initPath);
+            locationExplorer = new FileExplorer();
+            initLocations = locations;
 
             this.explorerMenuPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.explorerMenuPanel.SuspendLayout();
@@ -49,7 +51,7 @@ namespace Map
             this.explorerMenuPanel.ResumeLayout(false);
             this.explorerMenuPanel.PerformLayout();
 
-            CreateLocationButtons();
+            InitLocationButton();
         }
         
 
@@ -148,7 +150,38 @@ namespace Map
 
         }
 
-            private void CreateLocationButtons()
+        private void InitLocationButton()
+        {
+            foreach (string placeName in locations)
+            {
+                Button newButton = new System.Windows.Forms.Button();
+                // Limit
+                /*
+                if (placeName != "CERVINA" && placeName != "BARCA")
+                {
+                    newButton.Enabled = false;
+                }
+                */
+                // TODO: Beutify buttons
+                newButton.Margin = new System.Windows.Forms.Padding(5);
+                newButton.Size = new System.Drawing.Size(300, 50);
+                newButton.Cursor = System.Windows.Forms.Cursors.Hand;
+                newButton.Name = "btnLocation" + placeName;
+                newButton.Text = Path.GetFileName(placeName);
+                newButton.Tag = new List<string>();
+                // TODO: Pun them in enums
+                (newButton.Tag as List<string>).Add(placeName);
+                (newButton.Tag as List<string>).Add("locationButton");
+                newButton.Click += new System.EventHandler(this.locationButton_Click);
+
+                buttons.Add(newButton);
+                this.explorerMenuPanel.Controls.Add(newButton);
+            }
+            CreateBackButton();
+        }
+
+
+        private void CreateLocationButtons()
         {
             UpdateButtonsFromPath();
 
@@ -200,12 +233,13 @@ namespace Map
 
             senderBtn.Dispose();
             this.explorerMenuPanel.Controls.Remove(senderBtn);
+            locations = initLocations;
 
 
-            locationExplorer.goToBase();
+            //locationExplorer.goToBase();
 
             RemoveLocationButtons();
-            CreateLocationButtons();
+            InitLocationButton();
         }
 
 
@@ -217,10 +251,10 @@ namespace Map
         // TODO: These methods need to be moved in Designer
         private void ShowExplorerMenu()
         {
-            this.locationExplorer.goToBase();
+            locations = initLocations;
 
             RemoveLocationButtons();
-            CreateLocationButtons();
+            InitLocationButton();
 
             this.pbFull.Hide();
             this.explorerMenuPanel.Show();
