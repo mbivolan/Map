@@ -15,7 +15,6 @@ using Map.Components.Search;
 
 namespace Map
 {
-    //Brush brshSelect;
     public struct ColumnData
     {
         public string Nume { get; set; }
@@ -23,7 +22,7 @@ namespace Map
         public string Parcela { get; set; }
         public string Suprafata { get; set; }
     }
-    public enum KpZoom
+    public enum Zoom
     {
         ZoomIn,
         ZoomOut
@@ -64,22 +63,6 @@ namespace Map
                 }
                 this.Refresh();
             }
-        }
-        /// <summary>
-        /// Brushes for every firm
-        /// </summary>
-        private void bushType()
-        {
-            string anghel = "ANGHEL MIHAI";
-            string cerealcom = "CEREALCOM DOLJ";
-            string cervina = "CERVINA";
-            string oltyre = "OLTYRE";
-            string redias = "REDIAS REDEA";
-            if (imagePath.Contains(anghel))
-            {
-                Brush brushSelect = Brushes.Blue;
-            }
-
         }
         
         private bool _deleteDocs = false;
@@ -186,7 +169,6 @@ namespace Map
                 DisplayScrollbars();
                 SetScrollbarValues();
             }
-
             get { return this.imagePath; }
         }
 
@@ -279,9 +261,7 @@ namespace Map
             }
         }
 
-        /// ///////////////////////////////////////////////////////
         // CSV reader and autofill
-
         private void cleanTarlaView()
         {
             int i = 0;
@@ -433,8 +413,6 @@ namespace Map
             cleanTarlaView();
         }
 
-        /// ///////////////////////////////////////////////////////
-
         private void btnAddDocument_Click(object sender, EventArgs e)
         {
             if (lastSelectedPoint == -1)
@@ -452,21 +430,6 @@ namespace Map
                 refreshDocumentView(ck);
             }
 
-        }
-
-        private void additionalDocument_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            openFileDialog.Filter = "Fisiere PDF|*.pdf|All files (*.*)|*.*";
-
-            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                additionalDocumentText.Text = Path.GetFileName(openFileDialog.FileName);
-                additionalDocumentText.Tag = openFileDialog.FileName;
-            }
-
-            UpdatePanels(true);
         }
 
         private void SbVert_Scroll(object sender, ScrollEventArgs e)
@@ -618,17 +581,6 @@ namespace Map
             }
         }
 
-        public bool Scrollbars
-        {
-            get { return scrollbars; }
-            set
-            {
-                scrollbars = value;
-                DisplayScrollbars();
-                SetScrollbarValues();
-            }
-        }
-
         private void pbFull_MouseDown(object sender, MouseEventArgs e)
         {
             selectedPointNumber = getClickedCircle(drawing.getScaledPoint(new FloatPoint(e.X, e.Y)));
@@ -751,7 +703,6 @@ namespace Map
                     keyPressed = true;
                     break;
             }
-
             return keyPressed;
         }
 
@@ -823,7 +774,6 @@ namespace Map
                 rect.Y = ptSelectEnd.Y;
                 rect.Height = ptSelectStart.Y - ptSelectEnd.Y;
             }
-
             return rect;
         }
 
@@ -893,11 +843,11 @@ namespace Map
             {
                 if (e.Delta < 0)
                 {
-                    OnZoom(new ImageViewerZoomEventArgs(drawing.Zoom, KpZoom.ZoomOut));
+                    OnZoom(new ImageViewerZoomEventArgs(drawing.Zoom, Zoom.ZoomOut));
                 }
                 else
                 {
-                    OnZoom(new ImageViewerZoomEventArgs(drawing.Zoom, KpZoom.ZoomIn));
+                    OnZoom(new ImageViewerZoomEventArgs(drawing.Zoom, Zoom.ZoomIn));
                 }
             }
 
@@ -952,7 +902,7 @@ namespace Map
             // AfterZoom Event
             if (drawing.Image != null)
             {
-                OnZoom(new ImageViewerZoomEventArgs(drawing.Zoom, KpZoom.ZoomOut));
+                OnZoom(new ImageViewerZoomEventArgs(drawing.Zoom, Zoom.ZoomOut));
             }
             UpdatePanels(true);
         }
@@ -964,15 +914,15 @@ namespace Map
             // AfterZoom Event
             if (drawing.Image != null)
             {
-                OnZoom(new ImageViewerZoomEventArgs(drawing.Zoom, KpZoom.ZoomIn));
+                OnZoom(new ImageViewerZoomEventArgs(drawing.Zoom, Zoom.ZoomIn));
             }
             UpdatePanels(true);
         }
+
         public void InitControl()
         {
             // Make sure panel is DoubleBuffering
             drawEngine.CreateDoubleBuffer(pbFull.CreateGraphics(), pbFull.Size.Width, pbFull.Size.Height);
-
             
             if (!scrollbars)
             {
@@ -1032,8 +982,6 @@ namespace Map
 
                 // Calculate zoom
                 double zoom = Math.Round(((double)drawing.CurrentSize.Width / (double)drawing.OriginalSize.Width), 2);
-
-                // Display zoom in percentages
             }
             
         }
@@ -1046,13 +994,13 @@ namespace Map
                 get { return zoom; }
             }
 
-            private KpZoom inOut;
-            public KpZoom InOut
+            private Zoom inOut;
+            public Zoom InOut
             {
                 get { return inOut; }
             }
 
-            public ImageViewerZoomEventArgs(double zoom, KpZoom inOut)
+            public ImageViewerZoomEventArgs(double zoom, Zoom inOut)
             {
                 this.zoom = Convert.ToInt32(Math.Round((zoom * 100), 0));
                 this.inOut = inOut;
@@ -1092,7 +1040,6 @@ namespace Map
 
             PopulateMetaFields();
         }
-
         private int getClickedCircle(FloatPoint newPoint)
         {
             foreach (var thisCheckPoint in checkPoints)
@@ -1116,16 +1063,6 @@ namespace Map
             statusDosarText.Text = "";
             linkDocumentText.Text = "";
             additionalDocumentText.Text = "";
-        }
-
-        private void PopulateMetaFields(CheckPoint ck)
-        {
-            numePropText.Text = ck.NumeProprietar;
-            tarlaText.Text = ck.Tarla;
-            parcelaText.Text = ck.Parcela;
-            suprafataText.Text = ck.Suprafata;
-            statusDosarText.Text = ck.StatusDosar;
-            linkDocumentText.Text = ck.LinkDocument;
         }
 
         private void label6_Click(object sender, EventArgs e)
@@ -1290,7 +1227,6 @@ namespace Map
                 suprafataText.Text = ck.Suprafata;
                 statusDosarText.Text = ck.StatusDosar;
                 linkDocumentText.Text = ck.LinkDocument;
-                //additionalDocumentText.Text = ck.AdditionalDocument;
 
                 drawing.DrawCircle((int)ck.coord_x, (int)ck.coord_y, Brushes.Black);
                 UpdatePanels(true);
@@ -1379,37 +1315,10 @@ namespace Map
         private void addStatus()
         {
             var listaStatus = new List<string> {
-                ("C0 - GOL"),
-                ("C1 - Anexa 24"),
-                ("C2 - Cere bani"),
-                ("C3 - CI expirat"),
-                ("C4 - Datorii"),
-                ("C6 - De modificat CM"),
-                ("C7 - Decedat si nu are mostenitori"),
-                ("C8 - Inscriere in CF"),
-                ("C9 - Lipsa acte"),
-                ("C10 - Nu are loc in tarla"),
-                ("C11 - Nu are toare actele"),
-                ("C12 - Rectificare TDP"),
-                ("C13 - Succesiune"),
-                ("C14 - Sulte"),
-                ("C15 - Suprapunere"),
-                ("C16 - TDP gresit"),
-                ("C17 - Vandut la altii"),
-                ("C18 - Cota indiviziune"),
-                ("C19 - Dezmembrare"),
-                ("C20 - Dat la cadastru"),
-                ("C21 - De facut publicitate"),
-                ("C22 - La publicitate"),
-                ("C23 - De dat la instanta"),
-                ("C24 - Ipoteca"),
-                ("C25 - Decedat cu mostenitori"),
-                ("C26 - De luat TDP din arhiva"),
-                ("C27 - Tarla gresita in sentinta"),
-                ("Cesiune - Cesiune"),
-                ("SC - Sentinta cu cadastru CF"),
-                ("S - Sentinta fara cadastru"),
-                ("CVCP - Notariat CVC cu probleme"),
+                ("Antecontract"),
+                ("Cesiune"),
+                ("Sentinta"),
+                ("CVC"),
             };
             foreach (string entry in listaStatus)
             {

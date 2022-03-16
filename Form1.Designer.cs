@@ -244,6 +244,7 @@ namespace Map
             this.statusDosarText.Name = "statusDosarText";
             this.statusDosarText.Size = new System.Drawing.Size(180, 24);
             this.statusDosarText.TabIndex = 11;
+            this.statusDosarText.DropDownStyle =System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.statusDosarText.TextChanged += new System.EventHandler(this.statusDosarText_TextChanged);
             // 
             // suprafataText
@@ -528,11 +529,11 @@ namespace Map
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(126, 10);
+            this.button1.Location = new System.Drawing.Point(126, 6);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(80, 29);
             this.button1.TabIndex = 29;
-            this.button1.Text = "button1";
+            this.button1.Text = "Rapoarte";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
