@@ -8,11 +8,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Reflection;
 
 using RenderedDataList = System.Collections.Generic.List<System.Collections.Generic.List<System.String>>;
 
 namespace Map.Components.Search
 {
+    public static class ExtensionMethods
+    {
+      public static void DoubleBuffered(this DataGridView dgv, bool setting)
+      {
+          Type dgvType = dgv.GetType();
+         PropertyInfo pi = dgvType.GetProperty("DoubleBuffered",
+             BindingFlags.Instance | BindingFlags.NonPublic);
+         pi.SetValue(dgv, setting, null);
+      }
+    }
+
     public partial class Search : Form
     {
         DataSource newDataSource;
@@ -68,53 +80,6 @@ namespace Map.Components.Search
             resetTable("");
         }
 
-        private void filterList(List<string> list, List<string> filter)
-        {
-            foreach (string s in list)
-            {
-                filter.Add(s);
-            }
-        }
-
-        private void ResetFilters(List<string> filter)
-        {
-            List<String> firma = new List<String>();
-            List<String> localitate = new List<String>();
-            List<String> tarla = new List<String>();
-            List<String> status = new List<String>();
-            List<String> data = new List<String>();
-
-            filterList(filter, firma);
-            filterList(filter, localitate);
-            filterList(filter, tarla);
-            filterList(filter, status);
-            filterList(filter, data);
-        }
-
-        /*
-                private void resetTable(string resetField)
-                {
-                    filterLocalitate.Items.Clear();
-                    filterLocalitate.Items.AddRange(
-                        newDataSource.getUniqueValues(currentData, "Oras").ToArray()
-                    );
-
-                    filterTarla.Items.Clear();
-                    filterTarla.Items.AddRange(
-                        newDataSource.getUniqueValues(currentData, "Tarla").ToArray()
-                    );
-
-
-                    filterData.Items.Clear();
-                    filterData.Items.AddRange(
-                        newDataSource.getUniqueValues(currentData, "Data").ToArray()
-                    );
-
-
-
-                }
-        */
-
         private void resetTable(string resetField)
         {
             List<String> keys = this.filterBoxes.Keys.ToList();
@@ -142,7 +107,7 @@ namespace Map.Components.Search
             {
                 dataGridView1.Rows.Add(entry.ToArray());
             }
-
+            ExtensionMethods.DoubleBuffered(dataGridView1, true);
         }
 
         private void resetQuery(string resetField)
@@ -159,7 +124,6 @@ namespace Map.Components.Search
 
         private void filterJudet_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //currentData = newDataSource.filterData(currentData, "Judet", filterJudet.Text);
             searchQuery["Judet"] = filterJudet.Text;
             resetQuery("Judet");
             search();
@@ -168,7 +132,6 @@ namespace Map.Components.Search
 
         private void filterLocalitate_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //currentData = newDataSource.filterData(currentData, "Oras", filterLocalitate.Text);
             searchQuery["Oras"] = filterLocalitate.Text;
             search();
             resetTable("Oras");
@@ -176,7 +139,6 @@ namespace Map.Components.Search
 
         private void filterFirma_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //currentData = newDataSource.filterData(currentData, "Firma", filterFirma.Text);
             searchQuery["Firma"] = filterFirma.Text;
             search();
             resetTable("Firma");
@@ -219,7 +181,20 @@ namespace Map.Components.Search
 
         private void button1_Click(object sender, EventArgs e)
         {
-            StreamWriter sw = new StreamWriter(@"C:\Users\mabiv\Workspace\MapProject\test.csv", false);
+            SaveFileDialog result = new SaveFileDialog();
+            result.InitialDirectory = @"C:\";
+            result.RestoreDirectory = true;
+            result.FileName = ".csv";
+            result.DefaultExt = "csv";
+            result.Filter = "CSV Files (*.csv) | *.csv";
+            if (result.ShowDialog() == DialogResult.OK)
+            {
+                Stream fileStream = result.OpenFile();
+                fileStream.Close();
+            }
+
+
+            StreamWriter sw = new StreamWriter(result.FileName, false);
 
             foreach (String key in currentData[0].toHash().Keys)
             {
