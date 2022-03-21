@@ -76,12 +76,6 @@ namespace Map.Components.Search
             this.data = new List<List<String>>();
             this.rawData = new List<DataEntry>();
             List<string> files = findAllJson(paths);
-            /*
-            List<string> files = findAllJson(new List<string> {
-                //@"C:\Users\HP\Desktop\Test\DOLJ", @"C:\Users\HP\Desktop\Test\OLT" 
-                @"C:\Users\mabiv\Workspace\MapProject\test\Test\DOLJ", @"C:\Users\mabiv\Workspace\MapProject\test\Test\OLT"
-            });
-            */
 
             foreach (string file in files)
             {

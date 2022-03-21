@@ -48,7 +48,7 @@ namespace Map.Components.Search
             dataGridView1.ColumnCount = 11;
 
             dataGridView1.Columns[0].Name = "Nr. Crt.";
-            dataGridView1.Columns[1].Name = "Nr. Parcele";
+            dataGridView1.Columns[1].Name = "Nr. Dosar";
             dataGridView1.Columns[2].Name = "Judet";
             dataGridView1.Columns[3].Name = "Firma";
             dataGridView1.Columns[4].Name = "Localitate";
@@ -86,8 +86,6 @@ namespace Map.Components.Search
 
             int index = keys.IndexOf(resetField);
 
-
-
             for (int i = index + 1; i < this.filterBoxes.Count; i++)
             {
                 this.filterBoxes[keys[i]].Items.Clear();
@@ -103,10 +101,71 @@ namespace Map.Components.Search
 
 
             dataGridView1.Rows.Clear();
+            float sum = 0;
+            int count = 0;
             foreach (List<String> entry in newDataSource.renderData(currentData))
             {
                 dataGridView1.Rows.Add(entry.ToArray());
+                string num = entry[entry.Count - 1];
+                float number = float.Parse(num);
+                sum += number;
+                count++;
             }
+            int antecontract = 0;
+            int cesiune = 0;
+            int sentinta = 0;
+            int cvc = 0;
+            List<String> values = new List<string>();
+            List<String> nume = new List<string>();
+            List<String> dosare = new List<string>();
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                values.Add(Convert.ToString(dataGridView1.Rows[i].Cells[8].Value));
+                nume.Add(Convert.ToString(dataGridView1.Rows[i].Cells[5].Value));
+            }
+
+            dosare = nume.Distinct().ToList();
+            Dictionary<string, int> dict = new Dictionary<string, int>();
+            int indexx = 1;
+            foreach (string name in dosare)
+            {
+                dict.Add(name, indexx);
+                indexx++;
+            }
+
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if (dosare.Contains(Convert.ToString(dataGridView1.Rows[i].Cells[5].Value)))
+                {
+                    dataGridView1.Rows[i].Cells[1].Value = dict[Convert.ToString(dataGridView1.Rows[i].Cells[5].Value)];
+                }
+            }
+
+            foreach (string value in values)
+            {
+                if (value == "Antecontract")
+                {
+                    antecontract++;
+                }
+                else if (value == "Cesiune")
+                {
+                    cesiune++;
+                }
+                else if (value == "Cvc")
+                {
+                    cvc++;
+                }
+                else if (value == "Sentinta")
+                {
+                    sentinta++;
+                }
+            }
+
+                
+            dataGridView1.Rows.Add("", "Numar dosare: " + (indexx - 1), "", "", "", "", "", "Numar parcele: " + count , "Antecontracte: " + antecontract, "", "Total suprafata: " + sum);
+            dataGridView1.Rows.Add("", "", "", "", "", "", "", "", "Cesiuni: " + cesiune, "", "");
+            dataGridView1.Rows.Add("", "", "", "", "", "", "", "", "CVC: " + cvc, "", "");
+            dataGridView1.Rows.Add("", "", "", "", "", "", "", "", "Sentinte: " + sentinta, "", "");
             ExtensionMethods.DoubleBuffered(dataGridView1, true);
         }
 
@@ -196,6 +255,7 @@ namespace Map.Components.Search
 
             StreamWriter sw = new StreamWriter(result.FileName, false);
 
+            sw.Write("Nr. Crt.,");
             foreach (String key in currentData[0].toHash().Keys)
             {
                 sw.Write(key);
@@ -211,15 +271,11 @@ namespace Map.Components.Search
             {
                 index++;
                 List<String> newList = dr.toList();
-
+                sw.Write(index.ToString() + ',');
                 for (int i = 0; i < newList.Count; i++)
                 {
                     String value = newList[i];
-                    if (i == 0)
-                    {
-                        sw.Write(index.ToString() + ',');
-                        continue;
-                    }
+
 
                     if (value != null)
                     {

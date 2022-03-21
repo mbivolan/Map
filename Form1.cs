@@ -367,7 +367,7 @@ namespace Map
 
             char c = '+';
             int cnt = this.numePropText.Text.Count(f => (f == c));
-
+            
             using (TextFieldParser csvReader = new TextFieldParser(this.csvListPath))
             {
                 csvReader.CommentTokens = new string[] { "#" };
@@ -391,7 +391,7 @@ namespace Map
                     DataItems.Add(cd);
 
                 }
-
+                /*
                 if (cnt >= 0)
                 {
                     string[] subs = this.numePropText.Text.Split('+');
@@ -407,7 +407,9 @@ namespace Map
                         }
                     }
                 }
+                */
             }
+            
             this.panel1.Show();
             this.panelTarla.Hide();
             cleanTarlaView();

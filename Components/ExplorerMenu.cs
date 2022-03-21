@@ -155,7 +155,7 @@ namespace Map
             foreach (string placeName in locations)
             {
                 Button newButton = new System.Windows.Forms.Button();
-                // Limit
+                // Limit for demo
                 /*
                 if (placeName != "CERVINA" && placeName != "BARCA")
                 {
@@ -188,7 +188,7 @@ namespace Map
             foreach (string placeName in locations)
             {
                 Button newButton = new System.Windows.Forms.Button();
-                // Limit
+                // Limit for demo
                 /*
                 if (placeName != "CERVINA" && placeName != "BARCA")
                 {
@@ -234,9 +234,6 @@ namespace Map
             senderBtn.Dispose();
             this.explorerMenuPanel.Controls.Remove(senderBtn);
             locations = initLocations;
-
-
-            //locationExplorer.goToBase();
 
             RemoveLocationButtons();
             InitLocationButton();
