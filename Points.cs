@@ -14,6 +14,7 @@ namespace Map
         public string Suprafata;
         public string StatusDosar;
         public string LinkDocument;
+        public string date;
         public List<string> AdditionalDocument;
 
         public int coord_x;

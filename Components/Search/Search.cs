@@ -107,7 +107,12 @@ namespace Map.Components.Search
             {
                 dataGridView1.Rows.Add(entry.ToArray());
                 string num = entry[entry.Count - 1];
-                float number = float.Parse(num);
+                float number = 0;
+                if (num != "")
+                {
+                    number = float.Parse(num);
+                }
+                 
                 sum += number;
                 count++;
             }

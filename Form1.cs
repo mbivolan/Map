@@ -632,6 +632,7 @@ namespace Map
                     suprafataText.Text = checkPoints.ElementAt(selectedPointNumber).Suprafata;
                     statusDosarText.Text = checkPoints.ElementAt(selectedPointNumber).StatusDosar;
                     linkDocumentText.Text = checkPoints.ElementAt(selectedPointNumber).LinkDocument;
+                    dateTimePicker1.Text = checkPoints.ElementAt(selectedPointNumber).date;
 
                     lastSelectedPoint = selectedPointNumber;
                     refreshDocumentView(checkPoints.ElementAt(selectedPointNumber));
@@ -1025,6 +1026,7 @@ namespace Map
             ck.Suprafata = suprafataText.Text;
             ck.StatusDosar = statusDosarText.Text;
             ck.LinkDocument = linkDocumentText.Text;
+            ck.date = dateTimePicker1.Text;
 
             ck.AdditionalDocument.Clear();
 
@@ -1065,6 +1067,7 @@ namespace Map
             statusDosarText.Text = "";
             linkDocumentText.Text = "";
             additionalDocumentText.Text = "";
+            dateTimePicker1.Text = "";
         }
 
         private void label6_Click(object sender, EventArgs e)
@@ -1229,6 +1232,7 @@ namespace Map
                 suprafataText.Text = ck.Suprafata;
                 statusDosarText.Text = ck.StatusDosar;
                 linkDocumentText.Text = ck.LinkDocument;
+                dateTimePicker1.Text = ck.date;
 
                 drawing.DrawCircle((int)ck.coord_x, (int)ck.coord_y, Brushes.Black);
                 UpdatePanels(true);
@@ -1270,6 +1274,7 @@ namespace Map
             suprafataText.Text = ck.Suprafata;
             statusDosarText.Text = ck.StatusDosar;
             linkDocumentText.Text = ck.LinkDocument;
+            dateTimePicker1.Text = ck.date;
 
             if (lastSelectedPoint != -1)
             {
@@ -1332,5 +1337,6 @@ namespace Map
         {
             seachForm.ShowDialog();
         }
+
     }
 }

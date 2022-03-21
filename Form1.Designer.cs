@@ -52,6 +52,7 @@ namespace Map
             this.lblNavigation = new System.Windows.Forms.Label();
             this.panelNavigation = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.additionalDocumentText = new System.Windows.Forms.LinkLabel();
             this.linkDocumentText = new System.Windows.Forms.LinkLabel();
             this.statusDosarText = new System.Windows.Forms.ComboBox();
@@ -76,11 +77,11 @@ namespace Map
             this.searchMenu = new System.Windows.Forms.FlowLayoutPanel();
             this.button4 = new System.Windows.Forms.Button();
             this.removeDocBtn = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.pbFull = new Map.PanelDoubleBuffered();
             this.sbVert = new System.Windows.Forms.VScrollBar();
             this.sbHoriz = new System.Windows.Forms.HScrollBar();
             this.sbPanel = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbPanel)).BeginInit();
             this.panel1.SuspendLayout();
             this.addDocumentMenu.SuspendLayout();
@@ -195,6 +196,7 @@ namespace Map
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.dateTimePicker1);
             this.panel1.Controls.Add(this.additionalDocumentText);
             this.panel1.Controls.Add(this.linkDocumentText);
             this.panel1.Controls.Add(this.statusDosarText);
@@ -210,8 +212,17 @@ namespace Map
             this.panel1.Location = new System.Drawing.Point(1198, 41);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(297, 132);
+            this.panel1.Size = new System.Drawing.Size(297, 163);
             this.panel1.TabIndex = 17;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.CustomFormat = "dd/MM/yyyy";
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker1.Location = new System.Drawing.Point(112, 134);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(180, 22);
+            this.dateTimePicker1.TabIndex = 14;
             // 
             // additionalDocumentText
             // 
@@ -239,12 +250,12 @@ namespace Map
             // 
             // statusDosarText
             // 
+            this.statusDosarText.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.statusDosarText.Location = new System.Drawing.Point(112, 105);
             this.statusDosarText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.statusDosarText.Name = "statusDosarText";
             this.statusDosarText.Size = new System.Drawing.Size(180, 24);
             this.statusDosarText.TabIndex = 11;
-            this.statusDosarText.DropDownStyle =System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.statusDosarText.TextChanged += new System.EventHandler(this.statusDosarText_TextChanged);
             // 
             // suprafataText
@@ -382,7 +393,7 @@ namespace Map
             // 
             this.searchTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.searchTextBox.Enabled = false;
-            this.searchTextBox.Location = new System.Drawing.Point(1299, 405);
+            this.searchTextBox.Location = new System.Drawing.Point(1299, 436);
             this.searchTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(196, 22);
@@ -393,7 +404,7 @@ namespace Map
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(1198, 400);
+            this.button2.Location = new System.Drawing.Point(1198, 431);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(93, 33);
@@ -420,7 +431,7 @@ namespace Map
             this.addDocumentMenu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.addDocumentMenu.Controls.Add(this.label3);
             this.addDocumentMenu.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.addDocumentMenu.Location = new System.Drawing.Point(1198, 180);
+            this.addDocumentMenu.Location = new System.Drawing.Point(1198, 223);
             this.addDocumentMenu.Name = "addDocumentMenu";
             this.addDocumentMenu.Size = new System.Drawing.Size(297, 201);
             this.addDocumentMenu.TabIndex = 24;
@@ -442,7 +453,7 @@ namespace Map
             this.searchMenu.BackColor = System.Drawing.SystemColors.ControlLight;
             this.searchMenu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.searchMenu.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.searchMenu.Location = new System.Drawing.Point(1198, 440);
+            this.searchMenu.Location = new System.Drawing.Point(1198, 471);
             this.searchMenu.Name = "searchMenu";
             this.searchMenu.Size = new System.Drawing.Size(297, 201);
             this.searchMenu.TabIndex = 25;
@@ -471,6 +482,16 @@ namespace Map
             this.removeDocBtn.Text = "Sterge Document";
             this.removeDocBtn.UseVisualStyleBackColor = true;
             this.removeDocBtn.Click += new System.EventHandler(this.removeDocBtn_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(126, 6);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(80, 29);
+            this.button1.TabIndex = 29;
+            this.button1.Text = "Rapoarte";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // pbFull
             // 
@@ -526,16 +547,6 @@ namespace Map
             this.sbPanel.Name = "sbPanel";
             this.sbPanel.Size = new System.Drawing.Size(841, 608);
             this.sbPanel.TabIndex = 13;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(126, 6);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(80, 29);
-            this.button1.TabIndex = 29;
-            this.button1.Text = "Rapoarte";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // Form1
             // 
@@ -621,6 +632,7 @@ namespace Map
         private Button button4;
         private Button removeDocBtn;
         private Button button1;
+        private DateTimePicker dateTimePicker1;
     }
 }
 
