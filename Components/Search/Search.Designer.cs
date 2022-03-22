@@ -55,7 +55,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(9, 10);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
@@ -79,7 +79,7 @@
             this.filterJudet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.filterJudet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.filterJudet.Location = new System.Drawing.Point(847, 7);
-            this.filterJudet.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.filterJudet.Margin = new System.Windows.Forms.Padding(2);
             this.filterJudet.Name = "filterJudet";
             this.filterJudet.Size = new System.Drawing.Size(139, 21);
             this.filterJudet.TabIndex = 2;
@@ -145,7 +145,7 @@
             this.filterFirma.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.filterFirma.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.filterFirma.Location = new System.Drawing.Point(847, 33);
-            this.filterFirma.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.filterFirma.Margin = new System.Windows.Forms.Padding(2);
             this.filterFirma.Name = "filterFirma";
             this.filterFirma.Size = new System.Drawing.Size(139, 21);
             this.filterFirma.TabIndex = 8;
@@ -156,7 +156,7 @@
             this.filterLocalitate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.filterLocalitate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.filterLocalitate.Location = new System.Drawing.Point(867, 58);
-            this.filterLocalitate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.filterLocalitate.Margin = new System.Windows.Forms.Padding(2);
             this.filterLocalitate.Name = "filterLocalitate";
             this.filterLocalitate.Size = new System.Drawing.Size(119, 21);
             this.filterLocalitate.TabIndex = 9;
@@ -167,7 +167,7 @@
             this.filterTarla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.filterTarla.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.filterTarla.Location = new System.Drawing.Point(847, 83);
-            this.filterTarla.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.filterTarla.Margin = new System.Windows.Forms.Padding(2);
             this.filterTarla.Name = "filterTarla";
             this.filterTarla.Size = new System.Drawing.Size(139, 21);
             this.filterTarla.TabIndex = 10;
@@ -178,7 +178,7 @@
             this.filterStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.filterStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.filterStatus.Location = new System.Drawing.Point(880, 108);
-            this.filterStatus.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.filterStatus.Margin = new System.Windows.Forms.Padding(2);
             this.filterStatus.Name = "filterStatus";
             this.filterStatus.Size = new System.Drawing.Size(106, 21);
             this.filterStatus.TabIndex = 11;
@@ -189,7 +189,7 @@
             this.filterData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.filterData.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.filterData.Location = new System.Drawing.Point(886, 133);
-            this.filterData.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.filterData.Margin = new System.Windows.Forms.Padding(2);
             this.filterData.Name = "filterData";
             this.filterData.Size = new System.Drawing.Size(100, 21);
             this.filterData.TabIndex = 12;
@@ -199,7 +199,7 @@
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Location = new System.Drawing.Point(811, 162);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(90, 24);
             this.button1.TabIndex = 13;
@@ -226,9 +226,9 @@
             this.Controls.Add(this.filterJudet);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Search";
-            this.Text = "Form1";
+            this.Text = "Rapoarte";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

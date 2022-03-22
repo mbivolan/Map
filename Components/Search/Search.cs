@@ -14,17 +14,6 @@ using RenderedDataList = System.Collections.Generic.List<System.Collections.Gene
 
 namespace Map.Components.Search
 {
-    public static class ExtensionMethods
-    {
-      public static void DoubleBuffered(this DataGridView dgv, bool setting)
-      {
-          Type dgvType = dgv.GetType();
-         PropertyInfo pi = dgvType.GetProperty("DoubleBuffered",
-             BindingFlags.Instance | BindingFlags.NonPublic);
-         pi.SetValue(dgv, setting, null);
-      }
-    }
-
     public partial class Search : Form
     {
         DataSource newDataSource;
@@ -32,6 +21,14 @@ namespace Map.Components.Search
         Dictionary<string, string> searchQuery;
 
         Dictionary<String, ComboBox> filterBoxes;
+
+        public int antecontract;
+        public int cesiune;
+        public int sentinta;
+        public int cvc;
+        public float sum;
+        public int count;
+        public int indexx;
         public Search(List<String> initPath)
         {
             InitializeComponent();
@@ -42,7 +39,6 @@ namespace Map.Components.Search
                 { "Tarla", this.filterTarla},
                 { "Status", this.filterStatus},
                 { "Data", this.filterData},
-
             };
 
             dataGridView1.ColumnCount = 11;
@@ -99,10 +95,10 @@ namespace Map.Components.Search
                 searchQuery[keys[i]] = null;
             }
 
-
             dataGridView1.Rows.Clear();
-            float sum = 0;
-            int count = 0;
+            sum = 0;
+            count = 0;
+
             foreach (List<String> entry in newDataSource.renderData(currentData))
             {
                 dataGridView1.Rows.Add(entry.ToArray());
@@ -112,17 +108,19 @@ namespace Map.Components.Search
                 {
                     number = float.Parse(num);
                 }
-                 
                 sum += number;
                 count++;
             }
-            int antecontract = 0;
-            int cesiune = 0;
-            int sentinta = 0;
-            int cvc = 0;
+
+            antecontract = 0;
+            cesiune = 0;
+            sentinta = 0;
+            cvc = 0;
+            
             List<String> values = new List<string>();
             List<String> nume = new List<string>();
             List<String> dosare = new List<string>();
+
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
                 values.Add(Convert.ToString(dataGridView1.Rows[i].Cells[8].Value));
@@ -131,7 +129,7 @@ namespace Map.Components.Search
 
             dosare = nume.Distinct().ToList();
             Dictionary<string, int> dict = new Dictionary<string, int>();
-            int indexx = 1;
+            indexx = 1;
             foreach (string name in dosare)
             {
                 dict.Add(name, indexx);
@@ -165,8 +163,7 @@ namespace Map.Components.Search
                     sentinta++;
                 }
             }
-
-                
+            dataGridView1.Rows.Add("");
             dataGridView1.Rows.Add("", "Numar dosare: " + (indexx - 1), "", "", "", "", "", "Numar parcele: " + count , "Antecontracte: " + antecontract, "", "Total suprafata: " + sum);
             dataGridView1.Rows.Add("", "", "", "", "", "", "", "", "Cesiuni: " + cesiune, "", "");
             dataGridView1.Rows.Add("", "", "", "", "", "", "", "", "CVC: " + cvc, "", "");
@@ -257,7 +254,6 @@ namespace Map.Components.Search
                 fileStream.Close();
             }
 
-
             StreamWriter sw = new StreamWriter(result.FileName, false);
 
             sw.Write("Nr. Crt.,");
@@ -301,8 +297,24 @@ namespace Map.Components.Search
                 }
 
                 sw.Write(sw.NewLine);
+                
             }
+            sw.WriteLine(",");
+            sw.WriteLine("," + "Numar dosare: " + (indexx - 1) + ",,,,,," + "," + "Antecontracte: " + antecontract + ",," + "Total suprafata: " + sum);
+            sw.WriteLine("," + "Numar parcele: " + count + ",,,,,,," + "Cesiuni: " + cesiune + ",,") ;
+            sw.WriteLine(",,,,,,,," + "CVC: " + cvc + ",,");
+            sw.WriteLine(",,,,,,,," + "Sentinte: " + sentinta + ",,");
             sw.Close();
+        }
+    }
+    public static class ExtensionMethods
+    {
+        public static void DoubleBuffered(this DataGridView dgv, bool setting)
+        {
+            Type dgvType = dgv.GetType();
+            PropertyInfo pi = dgvType.GetProperty("DoubleBuffered",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+            pi.SetValue(dgv, setting, null);
         }
     }
 }
